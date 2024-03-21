@@ -1,0 +1,19 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+}
+
+.accueil{
+    text-align: center;
+}
+.accueil h1{
+    font-size: 40px;
+    text-decoration: underline;
+}
+.accueil p{
+    font-size: 20px;
+}
+
+.recette div .card{
+    font-size: 40px;
+}

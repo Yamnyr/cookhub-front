@@ -22,20 +22,11 @@ export default function Recette({ data }) {
 
 
   return (
-    <>
+    <div className='recette'>
       {data.map(recette =>
-        <Card sx={{ maxWidth: 345 }}>
-          <CardHeader
-            avatar={
-              <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                R
-              </Avatar>
-            }
-            action={
-              <IconButton aria-label="settings">
-                <MoreVertIcon />
-              </IconButton>
-            }
+      <div>
+        <Card sx={{ maxWidth: 425 }} className='card'>
+          <CardHeader className='cardheader'
             title="Shrimp and Chorizo Paella"
             subheader="September 14, 2016"
           />
@@ -66,7 +57,8 @@ export default function Recette({ data }) {
             </Link>
           </CardActions>
         </Card>
+      </div>
       )}
-    </>
+    </div>
   );
 }
