@@ -20,10 +20,10 @@ import { Link } from 'react-router-dom';
 
 export default function Recette({ data }) {
 
+  const { id, nom, preparation, ingredients, id_typeplat, idRegion } = data;
 
   return (
     <>
-      {data.map(recette =>
         <Card sx={{ maxWidth: 345 }}>
           <CardHeader
             avatar={
@@ -58,7 +58,7 @@ export default function Recette({ data }) {
                 <FavoriteIcon />
               </IconButton>
             </Link>
-            <Link to={`/showrecette/${recette.id}`} className='plusdetails'>
+            <Link to={`/showrecette/${id}`} className='plusdetails'>
               <IconButton aria-label="add to favorites" >
                 <h6>Plus de détails</h6>
                 <FaRegEye />
@@ -66,7 +66,6 @@ export default function Recette({ data }) {
             </Link>
           </CardActions>
         </Card>
-      )}
     </>
   );
 }
