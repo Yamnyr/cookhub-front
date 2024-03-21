@@ -85,7 +85,7 @@ export default function Recette({ data }) {
                 throw new Error(errorData.message);
             }
 
-            setFavorited(!favorited );
+            setFavorited(!favorited);
         } catch (error) {
             console.error('Error adding to favorites:', error);
         }
