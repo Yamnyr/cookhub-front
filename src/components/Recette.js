@@ -58,7 +58,7 @@ export default function Recette({ data }) {
                 <FavoriteIcon />
               </IconButton>
             </Link>
-            <Link to={`/showrecette/${recette.id}`} className='plusdétails'>
+            <Link to={`/showrecette/${recette.id}`} className='plusdetails'>
               <IconButton aria-label="add to favorites" >
                 <h6>Plus de détails</h6>
                 <FaRegEye />

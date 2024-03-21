@@ -1,6 +1,7 @@
 import React from 'react'
 import {useState, useEffect} from 'react'
 import Recette from './Recette';
+import Profil from './Profil';
 
 
 export default function RepRecette() {
@@ -31,8 +32,8 @@ console.log(recette)
       </div>
 
       <div>
-        <Recette data={recette}>
-        </Recette>
+        <Recette data={recette}/>
+        <Profil recipesByAuthor={recette}/>
         </div>
     </>
   )
