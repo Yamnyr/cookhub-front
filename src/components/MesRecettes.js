@@ -1,7 +1,6 @@
 import React from 'react'
 import {useState, useEffect} from 'react'
 import Recette from './Recette';
-import {useMyContext} from "./TokenProvider";
 
 
 export default function MesRecettes() {
