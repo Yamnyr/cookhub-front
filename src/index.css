@@ -57,3 +57,11 @@ footer {
 /*  flex: 0 0 calc(33.33% - 20px);*/
 /*  margin-right: 20px;*/
 /*}*/
+
+.liste-recette{
+  display: flex;
+  /*flex-direction: row;*/
+  flex-wrap: wrap; /* Ajout de flex-wrap: wrap pour permettre le passage à la ligne */
+  justify-content: space-between;
+  gap: 25px;
+}
