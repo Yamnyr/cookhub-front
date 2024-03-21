@@ -1,14 +1,17 @@
-import React from 'react'
-import { useState, useEffect } from 'react'
-import { Button, TextField } from "@mui/material";
+import React, { useState, useEffect } from 'react';
+import { Button, Rating, TextField } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
-import {MdDelete} from "react-icons/md";
-
+import { MdDelete } from "react-icons/md";
+import Typography from "@mui/material/Typography";
+// import { useMyContext } from "./TokenProvider";
 
 export default function Commentaires({ data }) {
-
-    const [input, setInput] = useState("");
-    const [commentaires, setCommentaires] = useState([])
+    const storedToken = localStorage.getItem("token");
+    const token = (JSON.parse(storedToken));
+    const [message, setMessage] = useState('');
+    const [note, setNote] = useState(0);
+    const [commentaires, setCommentaires] = useState([]);
+    const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(() => {
         fetch(`http://localhost:8000/recette/${data}/commentaires`)
@@ -22,64 +25,113 @@ export default function Commentaires({ data }) {
     }, []);
 
     const handleInputChange = (event) => {
-        setInput(event.target.value);                 // Mettre à jour la valeur de l'input
+        setMessage(event.target.value);
     };
 
-    const addCommentaire = () => {
-        if (input.trim() !== "") {
-            console.log('commentaire ajouté')// Effacer l'input après l'ajout
+    const addCommentaire = async () => {
+        try {
+            const response = await fetch(`http://localhost:8000/recette/${data}/commenter`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': token
+                },
+                body: JSON.stringify({
+                    message,
+                    note
+                }),
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message);
+            }
+
+            // Rafraîchir la liste des commentaires après l'ajout
+            fetch(`http://localhost:8000/recette/${data}/commentaires`)
+                .then(response => response.json())
+                .then(data => {
+                    setCommentaires(data);
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
+
+            // Effacer le champ de saisie après l'ajout
+            setMessage('');
+            setNote(0);
+        } catch (error) {
+            setErrorMessage(error.message);
         }
     };
 
-    const removeCommentaire = (indexToRemove) => {
-        // Retrouve le to do dans la liste des todos via l'index et l'extrait de la liste des todos avec filter
-        const updatedCommentaires = commentaires.filter((_, index) => index !== indexToRemove);
-        setCommentaires(updatedCommentaires);
-    };
+    // const removeCommentaire = async (index) => {
+    //     try {
+    //         const response = await fetch(`http://localhost:8000/recette/${data}/commentaires/${index}`, {
+    //             method: 'DELETE',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //                 'Authorization': token
+    //             },
+    //         });
+    //
+    //         if (!response.ok) {
+    //             const errorData = await response.json();
+    //             throw new Error(errorData.message);
+    //         }
+    //
+    //         // Rafraîchir la liste des commentaires après la suppression
+    //         fetch(`http://localhost:8000/recette/${data}/commentaires`)
+    //             .then(response => response.json())
+    //             .then(data => {
+    //                 setCommentaires(data);
+    //             })
+    //             .catch(error => {
+    //                 console.error('Error fetching data:', error);
+    //             });
+    //     } catch (error) {
+    //         setErrorMessage(error.message);
+    //     }
+    // };
 
     return (
         <>
             <div className={"container"}>
                 <h1>Commentaires</h1>
-                <div className={"input"}>
-                    <TextField
-                        className={"textfield"}
-                        // color={"noe"}
-                        focused
-                        fullWidth
-                        id="outlined-basic"
-                        // label="Outlined"
-                        // variant="outlined"
-                        value={input}
-
-                        onChange={handleInputChange} // Utiliser la fonction de gestionnaire d'événements pour mettre à jour l'input
-                        inputProps={{ style: { color: '#edf2f4' } }}
-                    />
-                    <Button
-                        className={"valid"}
-                        variant="contained"
-                        onClick={addCommentaire} // Utiliser la fonction d'ajout de todo
-                    ><AddIcon />
-                        ajouter
-                    </Button>
-                </div>
-
-
+                <Rating
+                    name="size-large"
+                    defaultValue={note}
+                    size="large"
+                    onChange={(event, value) => setNote(value)}
+                />
+                <TextField
+                    fullWidth={true}
+                    placeholder="Ajouter un commentaire."
+                    value={message}
+                    onChange={handleInputChange}
+                />
+                <Button
+                    fullWidth={true}
+                    className={"valid"}
+                    variant="contained"
+                    onClick={addCommentaire}
+                >
+                    <AddIcon />
+                    Ajouter
+                </Button>
                 <div>
                     {commentaires.map((commentaire, index) => (
-                        <div className="row" key={index}>
-                            <div key={index}>{commentaire.message}</div>
-                            <Button
-                                className={"delete"}
-                                variant="contained"
-                                onClick={() => removeCommentaire(index)} // Utiliser la fonction de suppression de commentaire
-                            >
-                                <MdDelete />
-                            </Button>
+                        <div className="row commentaire" key={index}>
+                            <div key={index}>
+                            <Rating name="read-only" value={commentaire.note} readOnly />
+                            <h3>{commentaire.id_utilisateur}</h3>
+                                {/*TODO: route recup nom utilisateur*/}
+                                {commentaire.message}
+                            </div>
                         </div>
                     ))}
                 </div>
             </div>
         </>
-    )
+    );
 }
