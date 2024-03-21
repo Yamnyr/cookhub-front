@@ -1,7 +1,6 @@
 import React from 'react'
 import {useState, useEffect} from 'react'
 import Recette from './Recette';
-import Profil from './Profil';
 
 
 export default function RepRecette() {
