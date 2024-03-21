@@ -6,20 +6,20 @@ import Profil from './Profil';
 
 export default function RepRecette() {
 
-  const [recette, setRecette] = useState([])
+  const [recettes, setRecettes] = useState([])
 
   useEffect(() => {
     fetch('http://localhost:8000/recette/getall')
         .then(response => response.json())
         .then(data => {
-            setRecette(data);
+            setRecettes(data);
         })
         .catch(error => {
             console.error('Error fetching data:', error);
         });
 }, []);
 
-console.log(recette)
+console.log(recettes)
 
   return (
     <>
@@ -31,9 +31,10 @@ console.log(recette)
         <p>Que vous soyez un novice en cuisine ou un chef expérimenté, CookHub est l'endroit parfait pour explorer de nouvelles saveurs et inspirations culinaires.</p>
       </div>
 
-      <div>
-        <Recette data={recette}/>
-        <Profil recipesByAuthor={recette}/>
+        <div>
+          {recettes.map(recette => (
+              <Recette key={recette.id} data={recette} />
+          ))}
         </div>
     </>
   )
