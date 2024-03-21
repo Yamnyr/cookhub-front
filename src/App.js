@@ -16,6 +16,7 @@ import Profil from './components/Profil'
 import MesRecettes from './components/MesRecettes'
 import FavRecette from './components/FavRecette'
 import FavUser from './components/FavUser'
+import {TokenProvider} from "./components/TokenProvider";
 
 
 
@@ -23,6 +24,7 @@ function App() {
   return (
     <div className="App">
 
+        <TokenProvider>
             <NavBar></NavBar>
             <div className={"content"}>
                 <Routes>
@@ -42,7 +44,7 @@ function App() {
 
                 <Footer></Footer>
             </div>
-
+        </TokenProvider>
     </div>
   );
 }

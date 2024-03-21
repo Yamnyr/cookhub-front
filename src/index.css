@@ -11,3 +11,28 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.content{
+  margin: 50px
+}
+
+.cadreForm{
+  margin: auto;
+  padding: 20px;
+  background-color: gray;
+  border-radius: 15px;
+  width: 50%;
+}
+
+.cadreForm{
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  padding: 20px;
+}
+.textField {
+  margin-bottom: 20px!important;
+}
+.button {
+  margin-bottom: 20px!important;
+}
