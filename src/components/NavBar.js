@@ -11,7 +11,9 @@ import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import AddIcon from '@mui/icons-material/Add';
 import { Link } from 'react-router-dom';
+import { Button } from '@mui/material';
 
 const profil = [
   { label: 'Profil', lien: '/profil' },
@@ -40,6 +42,7 @@ function NavBar() {
     setAnchorElUser(null);
   };
 
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -60,7 +63,7 @@ function NavBar() {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            CookHub
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -113,7 +116,14 @@ function NavBar() {
           >
             LOGO
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}/>
+          <Button
+            className={"ajoutrecette"}
+            variant="contained"
+            onClick={() => {window.location.href = '/ajoutrecette'; }} 
+          ><AddIcon />
+            ajouter une recette
+          </Button>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }} />
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>

@@ -1,5 +1,7 @@
 import React from 'react'
 import {useState, useEffect} from 'react'
+import Recette from './Recette';
+
 
 export default function RepRecette() {
 
@@ -15,6 +17,8 @@ export default function RepRecette() {
             console.error('Error fetching data:', error);
         });
 }, []);
+
+console.log(recette)
 
   return (
     <>

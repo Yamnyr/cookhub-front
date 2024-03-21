@@ -6,6 +6,7 @@ import Footer from "./components/Footer";
 
 import RepRecette from './components/RepRecette'
 import Recette from './components/Recette'
+import ShowRecette from './components/showRecette';
 import AjoutRecette from './components/AjoutRecette'
 
 import Login from './components/Login'
@@ -27,6 +28,7 @@ function App() {
                 <Routes>
                     <Route path="/" element={<RepRecette></RepRecette>}/>
                     <Route path="/recette/:id" element={<Recette></Recette>}/>
+                    <Route path="/showrecette/:id" element={<ShowRecette></ShowRecette>}/>
                     <Route path="/ajoutrecette" element={<AjoutRecette></AjoutRecette>}/>
 
                     <Route path="/login" element={<Login></Login>}/>
