@@ -15,7 +15,7 @@ import Register from './components/Register'
 import Profil from './components/Profil'
 import MesRecettes from './components/MesRecettes'
 import FavRecette from './components/FavRecette'
-import FavUser from './components/FavUser'
+import Abonnement from './components/Abonnement'
 import {TokenProvider} from "./components/TokenProvider";
 
 
@@ -39,7 +39,7 @@ function App() {
                     <Route path="/profil" element={<Profil></Profil>}/>
                     <Route path="/mesrecettes" element={<MesRecettes></MesRecettes>}/>
                     <Route path="/favrecettes" element={<FavRecette></FavRecette>}/>
-                    <Route path="/favuser" element={<FavUser></FavUser>}/>
+                    <Route path="/abonnement" element={<Abonnement></Abonnement>}/>
                 </Routes>
 
             </div>
