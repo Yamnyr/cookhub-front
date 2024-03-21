@@ -36,3 +36,24 @@ code {
 .button {
   margin-bottom: 20px!important;
 }
+
+.container-row{
+  display: flex;
+  flex-direction: row;
+  gap: 25px;
+  margin: 10px;
+  justify-content: space-between;
+  padding: 50px;
+}
+
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  margin-top: 100px;
+}
+
+/*.col-md-4 {*/
+/*  flex: 0 0 calc(33.33% - 20px);*/
+/*  margin-right: 20px;*/
+/*}*/

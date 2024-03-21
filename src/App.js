@@ -42,8 +42,9 @@ function App() {
                     <Route path="/favuser" element={<FavUser></FavUser>}/>
                 </Routes>
 
-                <Footer></Footer>
             </div>
+
+            <Footer></Footer>
         </TokenProvider>
     </div>
   );
