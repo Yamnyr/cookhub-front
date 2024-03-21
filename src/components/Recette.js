@@ -66,7 +66,6 @@ export default function Recette({ data }) {
             </Link>
           </CardActions>
         </Card>
-      )}
     </>
   );
 }
