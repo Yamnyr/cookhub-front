@@ -1,73 +1,159 @@
-import React, { useState, useEffect } from "react";
-import { Button, TextField } from "@mui/material";
-import AddIcon from '@mui/icons-material/Add';
+import React, { useState, useEffect } from 'react';
+import { TextField, Button, Typography, MenuItem, Select } from '@mui/material';
+import { useMyContext } from "./TokenProvider";
 
 export default function AjoutRecette() {
-  const [input, setInput] = useState(""); // State pour stocker la valeur de l'input
-  const [recettes, setRecettes] = useState(() => {
-      const storedRecettes = localStorage.getItem("recettes");
-      return storedRecettes ? JSON.parse(storedRecettes) : [];
-  });
-  // State pour stocker la liste des todos (recupère les to do du local storage si le usestate est vide
+    const { token } = useMyContext();
+    const [nom, setNom] = useState('');
+    const [preparation, setPreparation] = useState('');
+    const [ingrediants, setIngrediants] = useState('');
+    const [typePlat, setTypePlat] = useState('');
+    const [region, setRegion] = useState('');
+    const [regions, setRegions] = useState([]);
+    const [typesPlat, setTypesPlat] = useState([]);
+    const [errorMessage, setErrorMessage] = useState('');
 
-  useEffect(() => {
-      localStorage.setItem("recettes", JSON.stringify(recettes));
-  }, [recettes]);
-  // met a jour le local storage des todos des que le usestate de to do est mis a jour
+    useEffect(() => {
+        const fetchRegions = async () => {
+            try {
+                const response = await fetch('http://localhost:8000/region/getall', {
+                    method: 'GET',
+                });
 
-  const handleInputChange = (event) => {
-      setInput(event.target.value);                 // Mettre à jour la valeur de l'input
-  };
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.message);
+                }
 
-  const addRecette = () => {
-      if (input.trim() !== "") {
-        console.log('recette ajouté')   
-        setRecettes([...recettes, input]);        // Ajouter le contenu de l'input aux todos
-        setInput("");                       // Effacer l'input après l'ajout
-      }
-  };
-  return (
-    <>
-        <div className={"container"}>
-            <h1>Ajouter une recette</h1>
-            <div className={"input"}>
-              <p>Nom de la recette :</p>
-                <TextField
-                    className={"textfield"}
-                    // color={"noe"}
-                    focused
-                    fullWidth
-                    id="outlined-basic"
-                    // label="Outlined"
-                    // variant="outlined"
-                    value={input}
+                const regionsData = await response.json();
+                setRegions(regionsData);
+            } catch (error) {
+                setErrorMessage(error.message);
+            }
+        };
 
-                    onChange={handleInputChange} // Utiliser la fonction de gestionnaire d'événements pour mettre à jour l'input
-                    inputProps={{ style: { color: '#edf2f4' } }}
-                />
-                <p>Ingrediants :</p>
-                <TextField
-                    className={"textfield"}
-                    // color={"noe"}
-                    focused
-                    fullWidth
-                    id="outlined-basic"
-                    // label="Outlined"
-                    // variant="outlined"
-                    value={input}
+        const fetchTypesPlat = async () => {
+            try {
+                const response = await fetch('http://localhost:8000/typeplat/getall', {
+                    method: 'GET',
+                });
 
-                    onChange={handleInputChange} // Utiliser la fonction de gestionnaire d'événements pour mettre à jour l'input
-                    inputProps={{ style: { color: '#edf2f4' } }}
-                />
-                <Button
-                    className={"valid"}
-                    variant="contained"
-                    onClick={addRecette} // Utiliser la fonction d'ajout de todo
-                ><AddIcon />
-                    ajouter
-                </Button>
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.message);
+                }
+
+                const typesPlatData = await response.json();
+                setTypesPlat(typesPlatData);
+            } catch (error) {
+                setErrorMessage(error.message);
+            }
+        };
+
+        fetchRegions();
+        fetchTypesPlat();
+    }, [token]);
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        try {
+            const response = await fetch('http://localhost:8000/recette/add', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': token
+                },
+                body: JSON.stringify({
+                    nom,
+                    preparation,
+                    ingrediants,
+                    id_typeplat: typePlat,
+                    idRegion: region
+                }),
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message);
+            }
+
+            // Ici, vous pouvez gérer la réponse de la requête, par exemple, afficher un message de succès
+            console.log('Recette ajoutée avec succès');
+        } catch (error) {
+            setErrorMessage(error.message);
+        }
+    };
+
+    return (
+        <>
+            <div className={"cadreForm"}>
+                <Typography variant="h5">Ajouter une recette</Typography>
+                <form onSubmit={handleSubmit}>
+                    <TextField
+                        fullWidth={true}
+                        label="Nom de la recette"
+                        variant="outlined"
+                        className={"textField"}
+                        value={nom}
+                        onChange={(e) => setNom(e.target.value)}
+                    />
+                    <TextField
+                        fullWidth={true}
+                        label="Préparation"
+                        multiline
+                        rows={4}
+                        variant="outlined"
+                        className={"textField"}
+                        value={preparation}
+                        onChange={(e) => setPreparation(e.target.value)}
+                    />
+                    <TextField
+                        fullWidth={true}
+                        label="Ingrédients"
+                        multiline
+                        rows={4}
+                        variant="outlined"
+                        className={"textField"}
+                        value={ingrediants}
+                        onChange={(e) => setIngrediants(e.target.value)}
+                    />
+                    <Select
+                        fullWidth={true}
+                        label="Région"
+                        variant="outlined"
+                        className={"textField"}
+                        value={region}
+                        onChange={(e) => setRegion(e.target.value)}
+                    >
+                        {regions.map((region) => (
+                            <MenuItem key={region.id} value={region.id}>{region.nom}</MenuItem>
+                        ))}
+                    </Select>
+                    <Select
+                        fullWidth={true}
+                        label="Type de plat"
+                        variant="outlined"
+                        className={"textField"}
+                        value={typePlat}
+                        onChange={(e) => setTypePlat(e.target.value)}
+                    >
+                        {typesPlat.map((typePlat) => (
+                            <MenuItem key={typePlat.id} value={typePlat.id}>{typePlat.nom}</MenuItem>
+                        ))}
+                    </Select>
+                    <Button
+                        fullWidth={true}
+                        type="submit"
+                        variant="contained"
+                        color="primary"
+                        className={"button"}
+                    >
+                        Ajouter la recette
+                    </Button>
+                </form>
+                {errorMessage && <Typography variant="body1" color="error">{errorMessage}</Typography>}
             </div>
-        </div>
-    </>
-  )
+        </>
+    );
 }
