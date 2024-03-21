@@ -1,53 +1,3 @@
-// import * as React from 'react';
-// import Card from '@mui/material/Card';
-// import CardHeader from '@mui/material/CardHeader';
-// import CardMedia from '@mui/material/CardMedia';
-// import CardContent from '@mui/material/CardContent';
-// import CardActions from '@mui/material/CardActions';
-// import IconButton from '@mui/material/IconButton';
-// import Typography from '@mui/material/Typography';
-// import { FaRegEye } from "react-icons/fa";
-// import FavoriteIcon from '@mui/icons-material/Favorite';
-// import { Link } from 'react-router-dom';
-
-// export default function Recette({ data }) {
-
-//   const { id, nom, id_typeplat, id_region } = data;
-
-//   return (
-//     <div className='recette'>
-//       <Card sx={{ maxWidth: 425 }} className='card'>
-//         <div className='cardheader'>
-//           {nom}
-//         </div>
-//         {/* <CardMedia className='cardmedia'
-//             component="img"
-//             height="194"
-//             image="/static/images/cards/paella.jpg"
-//             alt="image"
-//           /> */}
-//         <div className='cardcontent'>
-//           {id_typeplat} | {id_region}
-//         </div>
-//         <div className='cardaction'>
-// <Link to={'/favrecettes'} className='addfavorite'>
-//   <IconButton>
-//     <FavoriteIcon />
-//     <h6>Ajouter aux favoris</h6>
-//   </IconButton>
-// </Link>
-// <Link to={`/showrecette/${id}`} className='plusdetails'>
-//   <IconButton>
-//     <h6>Détails</h6>
-//     <FaRegEye />
-//   </IconButton>
-// </Link>
-//         </div>
-//       </Card>
-//     </div>
-//   );
-// }
-
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
@@ -63,28 +13,84 @@ import { FaRegEye } from "react-icons/fa";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Link } from 'react-router-dom';
+import {useEffect, useState} from "react";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
+
   return <IconButton {...other} />;
-})(({ theme, expand }) => ({
-  transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-  marginLeft: 'auto',
-  transition: theme.transitions.create('transform', {
-    duration: theme.transitions.duration.shortest,
-  }),
-}));
+        })(({ theme, expand }) => ({
+          transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
+          marginLeft: 'auto',
+          transition: theme.transitions.create('transform', {
+            duration: theme.transitions.duration.shortest,
+          }),
+        }));
+
+
 
 export default function Recette({ data }) {
   const [expanded, setExpanded] = React.useState(false);
-
+  const [favorited, setFavorited] = useState(false);
+  const [favoris, setFavoris] = useState([]);
   const { id, nom, preparation, ingrediants, id_auteur, id_typeplat, id_region } = data;
+
+  const storedToken = localStorage.getItem("token");
+  const token = (JSON.parse(storedToken));
 
   const formattedIngredients = Object.keys(ingrediants).map(key => (
     <Typography key={key} variant="body2" color="text.secondary">
       {key}: {ingrediants[key]}
     </Typography>
   ));
+
+    useEffect(() => {
+        fetch('http://localhost:8000/recette/favoris',{
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': token
+            },
+        })
+            .then(response => response.json())
+            .then(data => {
+                // Extraire les identifiants des favoris
+                const favorisIds = data.map(favori => favori.id_recette);
+                setFavoris(favorisIds);
+                console.log(favorisIds)
+                // Vérifier si l'ID de la recette est présent dans la liste des favoris
+                if (favorisIds.includes(id)) {
+                    setFavorited(true); // Si oui, marquer comme favori
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    }, []);
+
+    const handleAddToFavorites = async () => {
+        const storedToken = localStorage.getItem("token");
+
+        const token = (JSON.parse(storedToken));
+        try {
+            const response = await fetch(`http://localhost:8000/recette/${id}/favori`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': token
+                },
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message);
+            }
+
+            setFavorited(!favorited );
+        } catch (error) {
+            console.error('Error adding to favorites:', error);
+        }
+    };
+
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -116,12 +122,10 @@ export default function Recette({ data }) {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <Link to={'/favrecettes'} className='addfavorite'>
-          <IconButton>
-            <FavoriteIcon />
-            <h6>Ajouter aux favoris</h6>
+          <IconButton onClick={handleAddToFavorites}>
+              <FavoriteIcon color={favorited ? 'secondary' : 'action'} />
+              {/*<h6>{favorited ? 'Retirer des favoris' : 'Ajouter aux favoris'}</h6>*/}
           </IconButton>
-        </Link>
         <Link to={`/showrecette/${id}`} className='plusdetails'>
           <IconButton>
             <h6>Détails</h6>
