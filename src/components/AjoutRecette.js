@@ -1,7 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
 import { TextField, Button, Typography, MenuItem, Select } from '@mui/material';
-import { useMyContext } from "./TokenProvider";
 import {redirect, useNavigate} from "react-router-dom";
 
 export default function AjoutRecette() {
@@ -146,6 +145,7 @@ export default function AjoutRecette() {
                         onChange={(e) => setImage(e.target.value)}
                     />
                     <Select
+                        focused
                         fullWidth={true}
                         label="Région"
                         variant="outlined"
@@ -154,7 +154,7 @@ export default function AjoutRecette() {
                         onChange={(e) => setRegion(e.target.value)}
                     >
                         {regions.map((region) => (
-                            <MenuItem key={region.id} value={region.id}>{region.nom}</MenuItem>
+                            <MenuItem key={region.id} value={region.id} className='menuRegion'>{region.nom}</MenuItem>
                         ))}
                     </Select>
                     <Select
