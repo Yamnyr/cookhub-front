@@ -76,7 +76,7 @@ export default function EditRecette() {
                 const errorData = await response.json();
                 throw new Error(errorData.message);
             }
-
+            navigate('/recettes');
             console.log('Recette mise à jour avec succès');
         } catch (error) {
             setErrorMessage(error.message);

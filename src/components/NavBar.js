@@ -56,7 +56,7 @@ function ResponsiveAppBar() {
             // console.log(response)
             if (response.status === 401) {
                 setPages([
-                    {label: 'toutes les recette', lien: '/recettes'}
+                    {label: 'toutes les recettes', lien: '/recettes'}
                 ]); // Fermez l'appel de fonction setPages avec une parenthèse fermante
 
                 setSettings([
@@ -67,7 +67,7 @@ function ResponsiveAppBar() {
             else {
                 setPages([
                     {label: 'ajouter une recette', lien: '/ajoutrecette'},
-                    {label: 'toutes les recette', lien: '/recettes'}
+                    {label: 'toutes les recettes', lien: '/recettes'}
                 ]); // Fermez l'appel de fonction setPages avec une parenthèse fermante
 
                 setSettings([
