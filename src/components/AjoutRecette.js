@@ -1,11 +1,9 @@
 
 import React, { useState, useEffect } from 'react';
 import { TextField, Button, Typography, MenuItem, Select } from '@mui/material';
-import { useMyContext } from "./TokenProvider";
 import {redirect, useNavigate} from "react-router-dom";
 
 export default function AjoutRecette() {
-    // const { token } = useMyContext();
     const navigate = useNavigate();
     const [nom, setNom] = useState('');
     const [preparation, setPreparation] = useState('');

@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import {redirect, useNavigate, useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import CardActions from "@mui/material/CardActions";
 import Commentaires from "./Commentaires";
 import {Grid} from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -184,6 +183,8 @@ function ShowRecette() {
                                         {/*<h6>{favorited ? 'Retirer des favoris' : 'Ajouter aux favoris'}</h6>*/}
                                     </IconButton>
                                 </h3>
+
+                                <p>{region ? region.nom : ''} | {type ? type.nom : ''}</p>
                                 {utilisateur && (
                                     <p>
                                         {/*{utilisateur.nom} {utilisateur.prenom}*/}
