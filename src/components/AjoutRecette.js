@@ -2,12 +2,15 @@
 import React, { useState, useEffect } from 'react';
 import { TextField, Button, Typography, MenuItem, Select } from '@mui/material';
 import { useMyContext } from "./TokenProvider";
+import {redirect, useNavigate} from "react-router-dom";
 
 export default function AjoutRecette() {
     // const { token } = useMyContext();
+    const navigate = useNavigate();
     const [nom, setNom] = useState('');
     const [preparation, setPreparation] = useState('');
     const [ingrediants, setIngrediants] = useState('');
+    const [image, setImage] = useState('');
     const [typePlat, setTypePlat] = useState('');
     const [region, setRegion] = useState('');
     const [regions, setRegions] = useState([]);
@@ -16,6 +19,10 @@ export default function AjoutRecette() {
     const storedToken = localStorage.getItem("token");
     const token = (JSON.parse(storedToken));
 
+    console.log(token)
+    if (!token){
+        redirect('/')
+    }
     useEffect(() => {
         const fetchRegions = async () => {
             try {
@@ -71,6 +78,7 @@ export default function AjoutRecette() {
                     nom,
                     preparation,
                     ingrediants,
+                    image: image,
                     id_typeplat: typePlat,
                     id_region: region
                 }),
@@ -82,7 +90,9 @@ export default function AjoutRecette() {
             }
 
             // Ici, vous pouvez gérer la réponse de la requête, par exemple, afficher un message de succès
-            console.log('Recette ajoutée avec succès');
+            // console.log('Recette ajoutée avec succès');
+
+            navigate('/recettes');
         } catch (error) {
             setErrorMessage(error.message);
         }
@@ -123,6 +133,17 @@ export default function AjoutRecette() {
                         className={"textField"}
                         value={ingrediants}
                         onChange={(e) => setIngrediants(e.target.value)}
+                    />
+                    <TextField
+                        focused
+                        fullWidth={true}
+                        label="Image"
+                        multiline
+                        rows={4}
+                        variant="outlined"
+                        className={"textField"}
+                        value={image}
+                        onChange={(e) => setImage(e.target.value)}
                     />
                     <Select
                         fullWidth={true}
