@@ -49,6 +49,7 @@ export default function Accueil() {
                 <p>Sur CookHub, vous pouvez découvrir une multitude de recettes provenant de cuisiniers amateurs et professionnels du monde entier.</p>
                 <p>Grâce à son aspect communautaire, les membres peuvent partager leurs propres créations culinaires, échanger des astuces et des conseils, ainsi que commenter et évaluer les recettes des autres.</p>
                 <p>Que vous soyez un novice en cuisine ou un chef expérimenté, CookHub est l'endroit parfait pour explorer de nouvelles saveurs et inspirations culinaires.</p>
+                <img src="https://www.francetravail.fr/files/live/sites/PE/files/Bien%20dans%20mon%20quotidien/BDMQ-Cuisine-850x523.jpg" alt="Cuisiner" />
             </div>
 
             {/*<div>*/}

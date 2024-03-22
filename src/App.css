@@ -6,6 +6,9 @@ body {
 .accueil{
     text-align: center;
 }
+.accueil img{
+    width: 450px;
+}
 .accueil h1{
     font-size: 40px;
     text-decoration: underline;
@@ -15,6 +18,12 @@ body {
 }
 
 .cadreForm form .textField{
+    background-color: #666666;
+    border: 1px solid #111111;
+    border-radius: 3%;
+}
+
+.cadreForm form .menuRegion{
     background-color: #666666;
     border: 1px solid #111111;
     border-radius: 3%;
