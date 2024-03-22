@@ -13,7 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { TbToolsKitchen3 } from "react-icons/tb";
 import {Link} from "react-router-dom";
-import { useState } from 'react';
+import {useEffect, useState} from 'react';
 
 
 function ResponsiveAppBar() {
@@ -81,8 +81,9 @@ function ResponsiveAppBar() {
             setErrorMessage(error.message);
         }
     }
-    check()
-
+    useEffect(() => {
+        check()
+    }, []);
 
 
     return (
@@ -138,7 +139,7 @@ function ResponsiveAppBar() {
                             }}
                         >
                             {pages.map((page) => (
-                                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                                <MenuItem key={page.label} onClick={handleCloseNavMenu}>
                                     <Typography textAlign="center">
                                         <Link to={page.lien}>{page.label}</Link>
                                         </Typography>
@@ -167,7 +168,7 @@ function ResponsiveAppBar() {
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {pages.map((page) => (
                             <Button
-                                key={page}
+                                key={page.label}
                                 onClick={handleCloseNavMenu}
                                 sx={{ my: 2, color: 'white', display: 'block' }}
                             >
@@ -200,7 +201,7 @@ function ResponsiveAppBar() {
                             onClose={handleCloseUserMenu}
                         >
                             {settings.map((setting) => (
-                                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                                <MenuItem key={setting.label} onClick={handleCloseUserMenu}>
                                     <Typography textAlign="center">
                                         <Link to={setting.lien}>{setting.label}</Link>
                                     </Typography>

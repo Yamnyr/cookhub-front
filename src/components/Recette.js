@@ -160,7 +160,11 @@ export default function Recette({ data }) {
       />
       <CardContent>
           <Typography variant="body2" color="text.secondary">
-              <p>{region ? region.nom : ''} | {type ? type.nom : ''}</p>
+              {region ? region.nom : ''} | {type ? type.nom : ''}
+
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+
               {ingrediants}
           </Typography>
       </CardContent>

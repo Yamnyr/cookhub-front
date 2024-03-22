@@ -82,7 +82,7 @@ function ShowRecette() {
                 }
             })
             .catch(error => {
-                console.error('Error fetching data:', error);
+                // console.error('Error fetching data:', error);
             });
     }, []);
 
@@ -137,7 +137,6 @@ function ShowRecette() {
         const token = JSON.parse(storedToken);
 
         try {
-
             const response = await fetch(`http://localhost:8000/utilisateur/${recette.id_auteur}/suivre`, {
                 method: 'GET',
                 headers: {

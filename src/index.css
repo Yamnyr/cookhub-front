@@ -100,8 +100,18 @@ footer {
 }
 
 .white{
-   color: #FBF5F3!important;
- }
+  text-decoration: none;
+  color: #FBF5F3!important;
+}
+
+span.white{
+  text-decoration: none;
+  color: #FBF5F3!important;
+}
+a:-webkit-any-link{
+  /*color: #FBF5F3!important;*/
+
+}
 
 .icon-large {
   font-size: 40px!important; /* Taille de l'icône personnalisée */
