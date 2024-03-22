@@ -55,15 +55,10 @@ function ResponsiveAppBar() {
             console.log(response)
             if (response.status === 401) {
                 setPages([
-                    // {label: 'ajouter une recette', lien: '/ajoutrecette'},
                     {label: 'toutes les recette', lien: '/recettes'}
                 ]); // Fermez l'appel de fonction setPages avec une parenthèse fermante
 
                 setSettings([
-                    // {label: 'profil', lien: '/profil'},
-                    // {label: 'Mes recettes', lien: '/mesrecettes'},
-                    // {label: 'Mes favoris', lien: '/favrecettes'},
-                    // {label: 'Mes abonnements', lien: '/abonnement'}
                     {label: 'Login', lien: '/login'},
                     {label: 'Register', lien: '/register'}
                 ]); // Fermez l'appel de fonction setSettings avec une parenthèse fermante
