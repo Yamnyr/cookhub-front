@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Rating, TextField } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
-import { MdDelete } from "react-icons/md";
-import Typography from "@mui/material/Typography";
 import Commentaire from "./Commentaire";
 // import { useMyContext } from "./TokenProvider";
 
@@ -65,35 +63,6 @@ export default function Commentaires({ data }) {
             setErrorMessage(error.message);
         }
     };
-
-    // const removeCommentaire = async (index) => {
-    //     try {
-    //         const response = await fetch(`http://localhost:8000/recette/${data}/commentaires/${index}`, {
-    //             method: 'DELETE',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //                 'Authorization': token
-    //             },
-    //         });
-    //
-    //         if (!response.ok) {
-    //             const errorData = await response.json();
-    //             throw new Error(errorData.message);
-    //         }
-    //
-    //         // Rafraîchir la liste des commentaires après la suppression
-    //         fetch(`http://localhost:8000/recette/${data}/commentaires`)
-    //             .then(response => response.json())
-    //             .then(data => {
-    //                 setCommentaires(data);
-    //             })
-    //             .catch(error => {
-    //                 console.error('Error fetching data:', error);
-    //             });
-    //     } catch (error) {
-    //         setErrorMessage(error.message);
-    //     }
-    // };
 
     return (
         <>

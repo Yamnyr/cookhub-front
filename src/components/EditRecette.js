@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { TextField, Button, Typography } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom'; // Importez useParams pour récupérer les paramètres de l'URL
-import { useMyContext } from "./TokenProvider";
+
 
 export default function EditRecette() {
     const navigate = useNavigate();

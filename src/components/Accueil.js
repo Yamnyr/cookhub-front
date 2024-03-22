@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Recette from './Recette';
-import { MenuItem, Select, TextField } from "@mui/material";
 
 export default function Accueil() {
     const [recettes, setRecettes] = useState([]);

@@ -71,7 +71,6 @@ function ResponsiveAppBar() {
                 ]); // Fermez l'appel de fonction setPages avec une parenthèse fermante
 
                 setSettings([
-                    { label: 'profil', lien: '/profil' },
                     { label: 'Mes recettes', lien: '/mesrecettes' },
                     { label: 'Mes favoris', lien: '/favrecettes' },
                     { label: 'Mes abonnements', lien: '/abonnement' }

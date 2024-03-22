@@ -15,7 +15,7 @@ import EditRecette from './components/EditRecette'
 import Login from './components/Login'
 import Register from './components/Register'
 
-import Profil from './components/Profil'
+// import Profil from './components/Profil'
 import MesRecettes from './components/MesRecettes'
 import FavRecette from './components/FavRecette'
 import Abonnement from './components/Abonnement'
@@ -60,7 +60,7 @@ function App() {
                             <Route path="/login" element={<Login></Login>} />
                             <Route path="/register" element={<Register></Register>} />
 
-                            <Route path="/profil" element={<Profil></Profil>} />
+                            {/* <Route path="/profil" element={<Profil></Profil>} /> */}
                             <Route path="/mesrecettes" element={<MesRecettes></MesRecettes>} />
                             <Route path="/favrecettes" element={<FavRecette></FavRecette>} />
                             <Route path="/abonnement" element={<Abonnement></Abonnement>} />
