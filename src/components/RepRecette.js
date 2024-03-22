@@ -6,7 +6,9 @@ export default function RepRecette() {
     const [recettes, setRecettes] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [regions, setRegions] = useState([]);
+    const [types, setTypes] = useState([]);
     const [region, setRegion] = useState('');
+    const [type, setType] = useState('');
 
     useEffect(() => {
         fetch('http://localhost:8000/recette/getall')
@@ -24,6 +26,14 @@ export default function RepRecette() {
             })
             .catch(error => {
                 console.error('Error fetching data:', error);
+            })
+        fetch('http://localhost:8000/typeplat/getall')
+            .then(response => response.json())
+            .then(data => {
+                setTypes(data);
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
             });
     }, []);
 
@@ -35,11 +45,16 @@ export default function RepRecette() {
         setRegion(event.target.value);
     };
 
-    // Filtrer les recettes en fonction du terme de recherche et de la région sélectionnée
+    const handleTypeChange = (event) => {
+        setType(event.target.value);
+    };
+
+// Filtrer les recettes en fonction du terme de recherche et de la région sélectionnée
     const filteredRecettes = recettes.filter(recette =>
-        (recette.nom.toLowerCase().includes(searchTerm) || recette.ingrediants.toLowerCase().includes(searchTerm)) &&
-        (region === '' || recette.id_region === region)
+        (recette.nom.toLowerCase().includes(searchTerm) || (recette.ingrediants && recette.ingrediants.toLowerCase().includes(searchTerm))) &&
+        (region === '' || recette.id_region === region) && (type === '' || recette.id_typeplat === type)
     );
+
 
     return (
         <>
@@ -75,6 +90,32 @@ export default function RepRecette() {
                             sx={{ bgcolor: '#FBF5F3' }} // Changez 'blue' par la couleur de fond souhaitée
                         >
                             {region.nom}
+                        </MenuItem>
+                    ))}
+                </Select>
+
+                <Select
+                    fullWidth={true}
+                    label="Région"
+                    variant="outlined"
+                    className={"textField"}
+                    value={type}
+                    onChange={handleTypeChange}
+                    color={"secondary"}
+                    sx={{ bgcolor: '#FBF5F3'}} // Changez 'blue' par la couleur de fond souhaitée
+                >
+                    <MenuItem value="" sx={{ bgcolor: '#FBF5F3' }} color="secondary" focused>
+                        Toutes les types
+                    </MenuItem>
+                    {types.map((type) => (
+                        <MenuItem
+                            color="secondary"
+                            focused
+                            key={type.id}
+                            value={type.id}
+                            sx={{ bgcolor: '#FBF5F3' }} // Changez 'blue' par la couleur de fond souhaitée
+                        >
+                            {type.nom}
                         </MenuItem>
                     ))}
                 </Select>

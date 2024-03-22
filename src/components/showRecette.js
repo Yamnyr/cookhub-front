@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import {redirect, useNavigate, useParams} from "react-router-dom";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -9,8 +9,10 @@ import Commentaires from "./Commentaires";
 import {Grid} from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import IconButton from "@mui/material/IconButton";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 function ShowRecette() {
+    const navigate = useNavigate(); // Utiliser useNavigate pour la redirection
     const { id } = useParams();
     const [recette, setRecette] = useState(null);
     const [utilisateur, setUtilisateur] = useState(null);
@@ -66,6 +68,27 @@ function ShowRecette() {
             });
     }, []);
 
+    const deleteRecette = async () => {
+        const storedToken = localStorage.getItem("token");
+        const token = (JSON.parse(storedToken));
+        try {
+            const response = await fetch(`http://localhost:8000/recette/${id}/delete`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': token
+                },
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message);
+            }
+            navigate('/recettes')
+
+        } catch (error) {
+            console.error('Error deleting recette:', error);
+        }
+    };
 
     const handleAddToFavorites = async () => {
         const storedToken = localStorage.getItem("token");
@@ -155,6 +178,10 @@ function ShowRecette() {
                                     {recette.nom}
                                     <IconButton onClick={handleAddToFavorites}>
                                     <FavoriteIcon fontSize="large" color={favorited ? 'secondary' : 'primary'} />
+                                    </IconButton>
+                                    <IconButton onClick={deleteRecette}>
+                                        <DeleteIcon fontSize="large"/>
+                                        {/*<h6>{favorited ? 'Retirer des favoris' : 'Ajouter aux favoris'}</h6>*/}
                                     </IconButton>
                                 </h3>
                                 {utilisateur && (

@@ -15,7 +15,10 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Link } from 'react-router-dom';
 import {useEffect, useState} from "react";
 import Avatar from "@mui/material/Avatar";
+import BuildIcon from '@mui/icons-material/Build';
+import BuildCircleIcon from '@mui/icons-material/BuildCircle';
 import {red} from "@mui/material/colors";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -143,8 +146,8 @@ export default function Recette({ data }) {
         action={
           <IconButton aria-label="settings">
 
-            <MoreVertIcon
-                color='primary'/>
+            {/*<MoreVertIcon*/}
+            {/*    color='primary'/>*/}
           </IconButton>
         }
         title={nom}
@@ -175,6 +178,12 @@ export default function Recette({ data }) {
               <IconButton className={"white"}>
                   {/* Utilisation de la classe personnalisée pour l'icône */}
                   <FaRegEye className="icon-large" />
+              </IconButton>
+          </Link>
+          <Link to={`/editrecette/${id}`} className='plusdetails'>
+              <IconButton className={"white"}>
+                  {/* Utilisation de la classe personnalisée pour l'icône */}
+                  <BuildCircleIcon className="icon-large" />
               </IconButton>
           </Link>
 
