@@ -11,14 +11,11 @@ import Typography from '@mui/material/Typography';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { FaRegEye } from "react-icons/fa";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Link } from 'react-router-dom';
 import {useEffect, useState} from "react";
 import Avatar from "@mui/material/Avatar";
-import BuildIcon from '@mui/icons-material/Build';
 import BuildCircleIcon from '@mui/icons-material/BuildCircle';
 import {red} from "@mui/material/colors";
-import DeleteIcon from '@mui/icons-material/Delete';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
