@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { TextField, Button, Typography } from '@mui/material';
-import { useParams } from 'react-router-dom'; // Importez useParams pour récupérer les paramètres de l'URL
+import {useNavigate, useParams} from 'react-router-dom'; // Importez useParams pour récupérer les paramètres de l'URL
 import { useMyContext } from "./TokenProvider";
 
 export default function EditRecette() {
+    const navigate = useNavigate();
 
     const storedToken = localStorage.getItem("token");
     const token = (JSON.parse(storedToken));
@@ -13,6 +14,27 @@ export default function EditRecette() {
 
     // Charge les détails de la recette à modifier lors du premier rendu
     useEffect(() => {
+        const check= async() =>{
+            try {
+                const response = await fetch('http://localhost:8000/recette/checkUser', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': token
+                    },
+                });
+                console.log(response)
+                if (response.status === 401) {
+                    navigate("/login");
+                }
+                else{
+
+                }
+            } catch (error) {
+                setErrorMessage(error.message);
+            }
+        }
+        check()
         const fetchRecette = async () => {
             try {
                 const response = await fetch(`http://localhost:8000/recette/getById/${id}`, { // Utilisez l'ID de la recette dans l'URL de l'API
