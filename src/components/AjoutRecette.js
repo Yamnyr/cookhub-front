@@ -144,6 +144,7 @@ export default function AjoutRecette() {
                         onChange={(e) => setImage(e.target.value)}
                     />
                     <Select
+                        focused
                         fullWidth={true}
                         label="Région"
                         variant="outlined"
@@ -152,7 +153,7 @@ export default function AjoutRecette() {
                         onChange={(e) => setRegion(e.target.value)}
                     >
                         {regions.map((region) => (
-                            <MenuItem key={region.id} value={region.id}>{region.nom}</MenuItem>
+                            <MenuItem key={region.id} value={region.id} className='menuRegion'>{region.nom}</MenuItem>
                         ))}
                     </Select>
                     <Select
