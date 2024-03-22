@@ -17,17 +17,13 @@ import {Link} from "react-router-dom";
 
 function ResponsiveAppBar() {
 
-    const pages = [
-        {label: 'ajouter une recette', lien: '/ajoutrecette'},
-        {label: 'toutes les recettes', lien: '/recettes'}
-    ];
-    const settings = [
-        {label: 'profil', lien: '/profil'},
-        {label: 'Mes recettes', lien: '/mesrecettes'},
-        {label: 'Mes favoris', lien: '/favrecettes'},
-        {label: 'Mes abonnements', lien: '/abonnement'}
-    ];
+    const storedToken = localStorage.getItem("token");
+    const token = (JSON.parse(storedToken));
 
+
+    const [errorMessage, setErrorMessage] = useState('');
+    const [pages, setPages] = useState([]);
+    const [settings, setSettings] = useState([]);
 
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -46,6 +42,52 @@ function ResponsiveAppBar() {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
+
+    const check= async() =>{
+        try {
+            const response = await fetch('http://localhost:8000/recette/checkUser', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': token
+                },
+            });
+            console.log(response)
+            if (response.status === 401) {
+                setPages([
+                    // {label: 'ajouter une recette', lien: '/ajoutrecette'},
+                    {label: 'toutes les recette', lien: '/recettes'}
+                ]); // Fermez l'appel de fonction setPages avec une parenthèse fermante
+
+                setSettings([
+                    // {label: 'profil', lien: '/profil'},
+                    // {label: 'Mes recettes', lien: '/mesrecettes'},
+                    // {label: 'Mes favoris', lien: '/favrecettes'},
+                    // {label: 'Mes abonnements', lien: '/abonnement'}
+                    {label: 'Login', lien: '/login'},
+                    {label: 'Register', lien: '/register'}
+                ]); // Fermez l'appel de fonction setSettings avec une parenthèse fermante
+            }
+            else {
+                setPages([
+                    {label: 'ajouter une recette', lien: '/ajoutrecette'},
+                    {label: 'toutes les recette', lien: '/recettes'}
+                ]); // Fermez l'appel de fonction setPages avec une parenthèse fermante
+
+                setSettings([
+                    {label: 'profil', lien: '/profil'},
+                    {label: 'Mes recettes', lien: '/mesrecettes'},
+                    {label: 'Mes favoris', lien: '/favrecettes'},
+                    {label: 'Mes abonnements', lien: '/abonnement'}
+                ]); // Fermez l'appel de fonction setSettings avec une parenthèse fermante
+            }
+        } catch (error) {
+            setErrorMessage(error.message);
+        }
+    }
+    check()
+
+
 
     return (
         <AppBar  position="static" className={"vert"}>
