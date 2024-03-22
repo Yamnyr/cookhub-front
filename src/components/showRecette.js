@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import {useNavigate, useParams} from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import Commentaires from "./Commentaires";
-import {Grid} from "@mui/material";
+import { Grid } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -41,7 +41,7 @@ function ShowRecette() {
     }, [id]);
 
     useEffect(() => {
-        fetch('http://localhost:8000/recette/favoris',{
+        fetch('http://localhost:8000/recette/favoris', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -65,7 +65,7 @@ function ShowRecette() {
 
 
     useEffect(() => {
-        fetch('http://localhost:8000/recette/follow',{
+        fetch('http://localhost:8000/recette/follow', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -221,7 +221,7 @@ function ShowRecette() {
                                     <FavoriteIcon fontSize="large" color={favorited ? 'secondary' : 'primary'} />
                                 </IconButton>
                                 <IconButton onClick={deleteRecette}>
-                                    <DeleteIcon fontSize="large"/>
+                                    <DeleteIcon fontSize="large" />
                                 </IconButton>
                             </Typography>
 
@@ -246,7 +246,7 @@ function ShowRecette() {
                     </Card>
                 </Grid>
 
-                <Commentaires data = {recette.id}/>
+                <Commentaires data={recette.id} />
             </Grid>
         </div>
     );

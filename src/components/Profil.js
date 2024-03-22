@@ -13,7 +13,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Link } from 'react-router-dom';
 
-export default function Profil({recipesByAuthor}) {
+export default function Profil({ recipesByAuthor }) {
   if (!recipesByAuthor) {
     return null; // or render some fallback UI if needed
   }

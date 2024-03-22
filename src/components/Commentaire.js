@@ -27,7 +27,7 @@ export default function Commentaire({ data }) {
         <div className="row commentaire">
             <div>
                 <Rating name="read-only" value={note}
-                        size="large" readOnly />
+                    size="large" readOnly />
                 {utilisateur && <h3>{utilisateur.nom} {utilisateur.prenom}</h3>}
                 {message}
             </div>

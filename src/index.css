@@ -13,32 +13,34 @@ code {
     monospace;
 }
 
-.content{
+.content {
   margin: 50px 10% 50px 10%
 }
 
-.cadreForm{
+.cadreForm {
   margin: auto;
   padding: 20px;
-  background-color: #2A2A2A!important;
+  background-color: #2A2A2A !important;
   border-radius: 15px;
   width: 50%;
 }
 
-.cadreForm{
+.cadreForm {
   display: flex;
   flex-direction: column;
   align-content: center;
   padding: 20px;
 }
+
 .textField {
-  margin-bottom: 20px!important;
-}
-.button {
-  margin-bottom: 20px!important;
+  margin-bottom: 20px !important;
 }
 
-.container-row{
+.button {
+  margin-bottom: 20px !important;
+}
+
+.container-row {
   display: flex;
   flex-direction: row;
   gap: 25px;
@@ -48,7 +50,7 @@ code {
 }
 
 footer {
-  background-color: #2A2A2A!important;
+  background-color: #2A2A2A !important;
   color: #fff;
   padding: 20px;
   margin-top: 100px;
@@ -59,43 +61,47 @@ footer {
 /*  margin-right: 20px;*/
 /*}*/
 
-.liste-recette{
+.liste-recette {
   display: flex;
   /*flex-direction: row;*/
-  flex-wrap: wrap; /* Ajout de flex-wrap: wrap pour permettre le passage à la ligne */
+  flex-wrap: wrap;
+  /* Ajout de flex-wrap: wrap pour permettre le passage à la ligne */
   justify-content: space-between;
   gap: 25px;
 }
-.container{
+
+.container {
   width: 75vw;
   margin: auto;
   padding: 20px;
-  background-color: #2A2A2A!important;
+  background-color: #2A2A2A !important;
   border-radius: 15px;
 }
 
-.valid{
-  margin-top: 20px!important;
+.valid {
+  margin-top: 20px !important;
 }
 
-.commentaire{
+.commentaire {
   border-radius: 5px;
   margin-top: 20px;
   padding: 20px;
   background-color: #FBF5F3;
 }
 
-.vert{
-  background-color: #0B7A75!important;
+.vert {
+  background-color: #0B7A75 !important;
 }
 
-.card-dark{
-  background-color: #2A2A2A!important;
-  border-radius: 6px!important;
+.card-dark {
+  background-color: #2A2A2A !important;
+  border-radius: 6px !important;
   padding: 5px;
 }
 
-.card-dark span, .card-dark p, .card-dark {
+.card-dark span,
+.card-dark p,
+.card-dark {
   color: #FBF5F3;
 }
 
@@ -114,41 +120,52 @@ a:-webkit-any-link{
 }
 
 .icon-large {
-  font-size: 40px!important; /* Taille de l'icône personnalisée */
+  font-size: 40px !important; /* Taille de l'icône personnalisée */
 }
 
-.cadreFilter{
-  background-color: #2A2A2A!important;
+.icon-large {
+  font-size: 40px !important;
+  /* Taille de l'icône personnalisée */
+}
+
+.cadreFilter {
+  background-color: #2A2A2A !important;
   margin-bottom: 20px;
   padding: 20px;
   border-radius: 6px;
 }
 
 
-.info{
-  background-color:  #FBF5F3!important;
+.info {
+  background-color: #FBF5F3 !important;
 }
 
-.h5{
-  margin-bottom: 20px!important;
+.h5 {
+  margin-bottom: 20px !important;
 }
 
-.accueil p{
+.accueil p {
   font-size: 20px;
 }
 
-.cadreForm form .textField{
+.cadreForm form .textField {
   background-color: #666666;
   border: 1px solid #111111;
   border-radius: 3%;
 }
 
-.cadreFilter .textField{
+.cadreFilter .textField {
   background-color: #888888;
   border: 2px solid #111111;
   border-radius: 3%;
 }
-.card-dark .imageCarte{
+
+.card-dark .imageCarte {
   border-bottom: 2px solid #0B7A75;
   border-radius: 5px;
+}
+
+.ajoutCom {
+  background-color: #FFFFFF;
+  color: #000000;
 }

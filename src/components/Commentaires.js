@@ -115,6 +115,7 @@ export default function Commentaires({ data }) {
                     placeholder="Ajouter un commentaire."
                     value={message}
                     onChange={handleInputChange}
+                    className="ajoutcom"
                     focused
                 />
                 <Button
@@ -125,7 +126,7 @@ export default function Commentaires({ data }) {
                     color={"secondary"}
                     size="large"
                 >
-                    <AddIcon/>
+                    <AddIcon />
                     Ajouter
                 </Button>
                 <div>

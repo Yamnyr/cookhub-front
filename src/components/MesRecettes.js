@@ -1,5 +1,5 @@
 import React from 'react'
-import {useState, useEffect} from 'react'
+import { useState, useEffect } from 'react'
 import Recette from './Recette';
 
 
@@ -10,7 +10,7 @@ export default function MesRecettes() {
     const token = (JSON.parse(storedToken));
     const [recettes, setRecettes] = useState([])
     useEffect(() => {
-        fetch('http://localhost:8000/recette/getmyrecette',{
+        fetch('http://localhost:8000/recette/getmyrecette', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -25,14 +25,14 @@ export default function MesRecettes() {
                 console.error('Error fetching data:', error);
             });
     }, []);
-  return (
-      <>
-          <h1>Mes recettes</h1>
-          <div className={"liste-recette"}>
-              {recettes.map(recette => (
-                  <Recette key={recette.id} data={recette}/>
-              ))}
-          </div>
-      </>
-  )
+    return (
+        <>
+            <h1>Mes recettes</h1>
+            <div className={"liste-recette"}>
+                {recettes.map(recette => (
+                    <Recette key={recette.id} data={recette} />
+                ))}
+            </div>
+        </>
+    )
 }

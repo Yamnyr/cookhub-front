@@ -1,5 +1,5 @@
 import './App.css';
-import {Route, Routes} from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 
 import NavBar from './components/NavBar';
 import Footer from "./components/Footer";
@@ -19,8 +19,8 @@ import Profil from './components/Profil'
 import MesRecettes from './components/MesRecettes'
 import FavRecette from './components/FavRecette'
 import Abonnement from './components/Abonnement'
-import {TokenProvider} from "./components/TokenProvider";
-import {ThemeProvider} from "@mui/material";
+import { TokenProvider } from "./components/TokenProvider";
+import { ThemeProvider } from "@mui/material";
 import { createTheme } from '@mui/material/styles';
 
 const theme = createTheme({
@@ -41,38 +41,38 @@ const theme = createTheme({
 
 
 function App() {
-  return (
-    <div className="App">
+    return (
+        <div className="App">
 
-        <ThemeProvider theme={theme}>
-        <TokenProvider>
-            <NavBar></NavBar>
-            <div className={"content"}>
-                <Routes>
-                    <Route path="/" element={<Accueil></Accueil>}/>
-                    <Route path="/recettes" element={<RepRecette></RepRecette>}/>
-                    <Route path="/ajoutrecette" element={<AjoutRecette></AjoutRecette>}/>
+            <ThemeProvider theme={theme}>
+                <TokenProvider>
+                    <NavBar></NavBar>
+                    <div className={"content"}>
+                        <Routes>
+                            <Route path="/" element={<Accueil></Accueil>} />
+                            <Route path="/recettes" element={<RepRecette></RepRecette>} />
+                            <Route path="/ajoutrecette" element={<AjoutRecette></AjoutRecette>} />
 
-                    <Route path="/recette/:id" element={<Recette></Recette>}/>
-                    <Route path="/showrecette/:id" element={<ShowRecette></ShowRecette>}/>
-                    <Route path="/editrecette/:id" element={<EditRecette></EditRecette>}/>
+                            <Route path="/recette/:id" element={<Recette></Recette>} />
+                            <Route path="/showrecette/:id" element={<ShowRecette></ShowRecette>} />
+                            <Route path="/editrecette/:id" element={<EditRecette></EditRecette>} />
 
-                    <Route path="/login" element={<Login></Login>}/>
-                    <Route path="/register" element={<Register></Register>}/>
+                            <Route path="/login" element={<Login></Login>} />
+                            <Route path="/register" element={<Register></Register>} />
 
-                    <Route path="/profil" element={<Profil></Profil>}/>
-                    <Route path="/mesrecettes" element={<MesRecettes></MesRecettes>}/>
-                    <Route path="/favrecettes" element={<FavRecette></FavRecette>}/>
-                    <Route path="/abonnement" element={<Abonnement></Abonnement>}/>
-                </Routes>
+                            <Route path="/profil" element={<Profil></Profil>} />
+                            <Route path="/mesrecettes" element={<MesRecettes></MesRecettes>} />
+                            <Route path="/favrecettes" element={<FavRecette></FavRecette>} />
+                            <Route path="/abonnement" element={<Abonnement></Abonnement>} />
+                        </Routes>
 
-            </div>
+                    </div>
 
-            <Footer></Footer>
-        </TokenProvider>
-        </ThemeProvider>
-    </div>
-  );
+                    <Footer></Footer>
+                </TokenProvider>
+            </ThemeProvider>
+        </div>
+    );
 }
 
 export default App;
