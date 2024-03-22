@@ -153,7 +153,7 @@ export default function Recette({ data }) {
         )}
 
       />
-      <CardMedia className='imageCarte'
+      <CardMedia  sx={{ height:200 }} className='imageCarte'
         component="img"
         image={image}
         alt={data.nom}
