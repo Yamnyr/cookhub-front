@@ -122,3 +122,23 @@ footer {
 .h5{
   margin-bottom: 20px!important;
 }
+
+.accueil p{
+  font-size: 20px;
+}
+
+.cadreForm form .textField{
+  background-color: #666666;
+  border: 1px solid #111111;
+  border-radius: 3%;
+}
+
+.cadreFilter .textField{
+  background-color: #888888;
+  border: 2px solid #111111;
+  border-radius: 3%;
+}
+.card-dark .imageCarte{
+  border-bottom: 2px solid #0B7A75;
+  border-radius: 5px;
+}

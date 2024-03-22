@@ -13,28 +13,3 @@ body {
     font-size: 40px;
     text-decoration: underline;
 }
-.accueil p{
-    font-size: 20px;
-}
-
-.cadreForm form .textField{
-    background-color: #666666;
-    border: 1px solid #111111;
-    border-radius: 3%;
-}
-
-.cadreForm form .menuRegion{
-    background-color: #666666;
-    border: 1px solid #111111;
-    border-radius: 3%;
-}
-
-.cadreFilter .textField{
-    background-color: #888888;
-    border: 2px solid #111111;
-    border-radius: 3%;
-}
-.card-dark .imageCarte{
-    border: 2px solid #AAAAAA;
-    border-radius: 5px;
-}
