@@ -12,7 +12,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { TbToolsKitchen3 } from "react-icons/tb";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState } from 'react';
 
 
@@ -44,7 +44,7 @@ function ResponsiveAppBar() {
         setAnchorElUser(null);
     };
 
-    const check= async() =>{
+    const check = async () => {
         try {
             const response = await fetch('http://localhost:8000/recette/checkUser', {
                 method: 'GET',
@@ -56,25 +56,25 @@ function ResponsiveAppBar() {
             // console.log(response)
             if (response.status === 401) {
                 setPages([
-                    {label: 'toutes les recettes', lien: '/recettes'}
+                    { label: 'toutes les recettes', lien: '/recettes' }
                 ]); // Fermez l'appel de fonction setPages avec une parenthèse fermante
 
                 setSettings([
-                    {label: 'Login', lien: '/login'},
-                    {label: 'Register', lien: '/register'}
+                    { label: 'Login', lien: '/login' },
+                    { label: 'Register', lien: '/register' }
                 ]); // Fermez l'appel de fonction setSettings avec une parenthèse fermante
             }
             else {
                 setPages([
-                    {label: 'ajouter une recette', lien: '/ajoutrecette'},
-                    {label: 'toutes les recettes', lien: '/recettes'}
+                    { label: 'ajouter une recette', lien: '/ajoutrecette' },
+                    { label: 'toutes les recettes', lien: '/recettes' }
                 ]); // Fermez l'appel de fonction setPages avec une parenthèse fermante
 
                 setSettings([
-                    {label: 'profil', lien: '/profil'},
-                    {label: 'Mes recettes', lien: '/mesrecettes'},
-                    {label: 'Mes favoris', lien: '/favrecettes'},
-                    {label: 'Mes abonnements', lien: '/abonnement'}
+                    { label: 'profil', lien: '/profil' },
+                    { label: 'Mes recettes', lien: '/mesrecettes' },
+                    { label: 'Mes favoris', lien: '/favrecettes' },
+                    { label: 'Mes abonnements', lien: '/abonnement' }
                 ]); // Fermez l'appel de fonction setSettings avec une parenthèse fermante
             }
         } catch (error) {
@@ -86,7 +86,7 @@ function ResponsiveAppBar() {
 
 
     return (
-        <AppBar  position="static" className={"vert"}>
+        <AppBar position="static" className={"vert"}>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <TbToolsKitchen3 sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
@@ -96,17 +96,17 @@ function ResponsiveAppBar() {
                         component="a"
                         href="/"
                         sx={{
-                          mr: 2,
-                          display: { xs: 'none', md: 'flex' },
-                          fontFamily: 'monospace',
-                          fontWeight: 700,
-                          letterSpacing: '.3rem',
-                          color: 'inherit',
-                          textDecoration: 'none',
+                            mr: 2,
+                            display: { xs: 'none', md: 'flex' },
+                            fontFamily: 'monospace',
+                            fontWeight: 700,
+                            letterSpacing: '.3rem',
+                            color: 'inherit',
+                            textDecoration: 'none',
                         }}
-                      >
+                    >
                         CookHub
-                      </Typography>
+                    </Typography>
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                         <IconButton
@@ -141,7 +141,7 @@ function ResponsiveAppBar() {
                                 <MenuItem key={page} onClick={handleCloseNavMenu}>
                                     <Typography textAlign="center">
                                         <Link to={page.lien}>{page.label}</Link>
-                                        </Typography>
+                                    </Typography>
                                 </MenuItem>
                             ))}
                         </Menu>

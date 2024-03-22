@@ -49,7 +49,7 @@ export default function RepRecette() {
         setType(event.target.value);
     };
 
-// Filtrer les recettes en fonction du terme de recherche et de la région sélectionnée
+    // Filtrer les recettes en fonction du terme de recherche et de la région sélectionnée
     const filteredRecettes = recettes.filter(recette =>
         (recette.nom.toLowerCase().includes(searchTerm) || (recette.ingrediants && recette.ingrediants.toLowerCase().includes(searchTerm))) &&
         (region === '' || recette.id_region === region) && (type === '' || recette.id_typeplat === type)
@@ -58,7 +58,7 @@ export default function RepRecette() {
 
     return (
         <>
-            <div  className={"cadreFilter"}>
+            <div className={"cadreFilter"}>
                 <TextField
                     fullWidth={true}
                     placeholder="Rechercher une recette par son nom / ingrediants"
@@ -77,7 +77,7 @@ export default function RepRecette() {
                     value={region}
                     onChange={handleRegionChange}
                     color={"secondary"}
-                    sx={{ bgcolor: '#FBF5F3'}} // Changez 'blue' par la couleur de fond souhaitée
+                    sx={{ bgcolor: '#FBF5F3' }} // Changez 'blue' par la couleur de fond souhaitée
                 >
                     <MenuItem value="" sx={{ bgcolor: '#FBF5F3' }} color="secondary" focused>
                         Toutes les régions
@@ -103,7 +103,7 @@ export default function RepRecette() {
                     value={type}
                     onChange={handleTypeChange}
                     color={"secondary"}
-                    sx={{ bgcolor: '#FBF5F3'}} // Changez 'blue' par la couleur de fond souhaitée
+                    sx={{ bgcolor: '#FBF5F3' }} // Changez 'blue' par la couleur de fond souhaitée
                 >
                     <MenuItem value="" sx={{ bgcolor: '#FBF5F3' }} color="secondary" focused>
                         Toutes les types

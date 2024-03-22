@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { TextField, Button, Typography, MenuItem, Select } from '@mui/material';
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function AjoutRecette() {
     const navigate = useNavigate();
@@ -20,7 +20,7 @@ export default function AjoutRecette() {
     console.log(token)
 
     useEffect(() => {
-        const check= async() =>{
+        const check = async () => {
             try {
                 const response = await fetch('http://localhost:8000/recette/checkUser', {
                     method: 'GET',
@@ -31,9 +31,9 @@ export default function AjoutRecette() {
                 });
                 console.log(response)
                 if (response.status === 401) {
-                     navigate("/login");
+                    navigate("/login");
                 }
-                else{
+                else {
 
                 }
             } catch (error) {
