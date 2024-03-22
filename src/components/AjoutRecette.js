@@ -4,7 +4,7 @@ import { TextField, Button, Typography, MenuItem, Select } from '@mui/material';
 import { useMyContext } from "./TokenProvider";
 
 export default function AjoutRecette() {
-    const { token } = useMyContext();
+    // const { token } = useMyContext();
     const [nom, setNom] = useState('');
     const [preparation, setPreparation] = useState('');
     const [ingrediants, setIngrediants] = useState('');
@@ -13,6 +13,8 @@ export default function AjoutRecette() {
     const [regions, setRegions] = useState([]);
     const [typesPlat, setTypesPlat] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
+    const storedToken = localStorage.getItem("token");
+    const token = (JSON.parse(storedToken));
 
     useEffect(() => {
         const fetchRegions = async () => {
@@ -70,7 +72,7 @@ export default function AjoutRecette() {
                     preparation,
                     ingrediants,
                     id_typeplat: typePlat,
-                    idRegion: region
+                    id_region: region
                 }),
             });
 
@@ -89,9 +91,10 @@ export default function AjoutRecette() {
     return (
         <>
             <div className={"cadreForm"}>
-                <Typography variant="h5">Ajouter une recette</Typography>
+                <Typography className={"h5"} variant="h3 white">Ajouter une recette</Typography>
                 <form onSubmit={handleSubmit}>
                     <TextField
+                        focused
                         fullWidth={true}
                         label="Nom de la recette"
                         variant="outlined"
@@ -100,6 +103,7 @@ export default function AjoutRecette() {
                         onChange={(e) => setNom(e.target.value)}
                     />
                     <TextField
+                        focused
                         fullWidth={true}
                         label="Préparation"
                         multiline
@@ -110,6 +114,7 @@ export default function AjoutRecette() {
                         onChange={(e) => setPreparation(e.target.value)}
                     />
                     <TextField
+                        focused
                         fullWidth={true}
                         label="Ingrédients"
                         multiline
@@ -132,6 +137,7 @@ export default function AjoutRecette() {
                         ))}
                     </Select>
                     <Select
+                        focused
                         fullWidth={true}
                         label="Type de plat"
                         variant="outlined"
@@ -147,7 +153,7 @@ export default function AjoutRecette() {
                         fullWidth={true}
                         type="submit"
                         variant="contained"
-                        color="primary"
+                        color="secondary"
                         className={"button"}
                     >
                         Ajouter la recette

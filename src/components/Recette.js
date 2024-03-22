@@ -14,6 +14,8 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Link } from 'react-router-dom';
 import {useEffect, useState} from "react";
+import Avatar from "@mui/material/Avatar";
+import {red} from "@mui/material/colors";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -28,21 +30,23 @@ const ExpandMore = styled((props) => {
         }));
 
 
-
 export default function Recette({ data }) {
   const [expanded, setExpanded] = React.useState(false);
   const [favorited, setFavorited] = useState(false);
-  const [favoris, setFavoris] = useState([]);
-  const { id, nom, preparation, ingrediants, id_auteur, id_typeplat, id_region } = data;
+  const { id, nom, image, preparation, ingrediants, id_auteur, id_typeplat, id_region, createdAt } = data;
+    const formattedDate = new Date(createdAt).toISOString().split('T')[0];
+    const [auteur, setAuteur] = useState(null);
+    const [region, setRegion] = useState(null);
+    const [type, setType] = useState(null);
 
   const storedToken = localStorage.getItem("token");
   const token = (JSON.parse(storedToken));
 
-  const formattedIngredients = Object.keys(ingrediants).map(key => (
-    <Typography key={key} variant="body2" color="text.secondary">
-      {key}: {ingrediants[key]}
-    </Typography>
-  ));
+  // const formattedIngredients = Object.keys(ingrediants).map(key => (
+  //   <Typography key={key} variant="body2" color="text.secondary">
+  //     {key}: {ingrediants[key]}
+  //   </Typography>
+  // ));
 
     useEffect(() => {
         fetch('http://localhost:8000/recette/favoris',{
@@ -56,9 +60,6 @@ export default function Recette({ data }) {
             .then(data => {
                 // Extraire les identifiants des favoris
                 const favorisIds = data.map(favori => favori.id_recette);
-                setFavoris(favorisIds);
-                console.log(favorisIds)
-                // Vérifier si l'ID de la recette est présent dans la liste des favoris
                 if (favorisIds.includes(id)) {
                     setFavorited(true); // Si oui, marquer comme favori
                 }
@@ -68,9 +69,42 @@ export default function Recette({ data }) {
             });
     }, []);
 
+    useEffect(() => {
+
+        if (id_region) {
+            fetch(`http://localhost:8000/region/getbyid/${id_region}`)
+                .then(response => response.json())
+                .then(data => {
+                    setRegion(data);
+                })
+                .catch(error => {
+                    console.error('Error fetching region data:', error);
+                });
+        }
+
+        if (id_typeplat) {
+            fetch(`http://localhost:8000/typeplat/getbyid/${id_typeplat}`)
+                .then(response => response.json())
+                .then(data => {
+                    setType(data);
+                })
+                .catch(error => {
+                    console.error('Error fetching region data:', error);
+                });
+        }
+        if (id_auteur) {
+            fetch(`http://localhost:8000/utilisateur/getbyid/${id_auteur}`)
+                .then(response => response.json())
+                .then(data => {
+                    setAuteur(data);
+                })
+                .catch(error => {
+                    console.error('Error fetching user data:', error);
+                });
+        }
+    }, [id_region]);
     const handleAddToFavorites = async () => {
         const storedToken = localStorage.getItem("token");
-
         const token = (JSON.parse(storedToken));
         try {
             const response = await fetch(`http://localhost:8000/recette/${id}/favori`, {
@@ -97,42 +131,55 @@ export default function Recette({ data }) {
   };
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card className={"card-dark"} sx={{ width: 300 }}>
       <CardHeader
-        
+          avatar={
+              <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+                  {auteur && (
+                      `${auteur.nom}`
+                  )}
+              </Avatar>
+          }
         action={
           <IconButton aria-label="settings">
-            
-            <MoreVertIcon />
+
+            <MoreVertIcon
+                color='primary'/>
           </IconButton>
         }
         title={nom}
-        subheader={`September 14, 2016 Créé par : ${id_auteur}`}
+        subheader= {auteur && (
+            `${formattedDate}  |  ${auteur.nom} ${auteur.prenom}`
+        )}
+
       />
       <CardMedia
         component="img"
         height="194"
-        image="/static/images/cards/paella.jpg"
+        image={image}
         alt="Paella dish"
       />
       <CardContent>
-        <Typography variant="body2" color="text.secondary">
-          <p>{id_region} | {id_typeplat}</p>
-          {formattedIngredients}
-        </Typography>
+          <Typography variant="body2" color="text.secondary">
+              <p>{region ? region.nom : ''} | {type ? type.nom : ''}</p>
+              {ingrediants}
+          </Typography>
       </CardContent>
       <CardActions disableSpacing>
+
           <IconButton onClick={handleAddToFavorites}>
-              <FavoriteIcon color={favorited ? 'secondary' : 'action'} />
+              <FavoriteIcon fontSize="large" color={favorited ? 'secondary' : 'primary'} />
               {/*<h6>{favorited ? 'Retirer des favoris' : 'Ajouter aux favoris'}</h6>*/}
           </IconButton>
-        <Link to={`/showrecette/${id}`} className='plusdetails'>
-          <IconButton>
-            <h6>Détails</h6>
-            <FaRegEye />
-          </IconButton>
-        </Link>
+          <Link to={`/showrecette/${id}`} className='plusdetails'>
+              <IconButton className={"white"}>
+                  {/* Utilisation de la classe personnalisée pour l'icône */}
+                  <FaRegEye className="icon-large" />
+              </IconButton>
+          </Link>
+
         <ExpandMore
+            color='primary'
           expand={expanded}
           onClick={handleExpandClick}
           aria-expanded={expanded}

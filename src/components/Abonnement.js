@@ -30,9 +30,12 @@ export default function Abonnement() {
 
   return (
       <>
+          <h1>Mes abonnements</h1>
+          <div className={"liste-recette"}>
           {Array.isArray(recettes) && recettes.map(recette => (
               <Recette key={recette.id} data={recette} />
           ))}
+          </div>
       </>
   );
 }

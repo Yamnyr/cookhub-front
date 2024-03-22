@@ -30,9 +30,12 @@ export default function FavRecette() {
 
   return (
       <>
-          {Array.isArray(recettes) && recettes.map(recette => (
-              <Recette key={recette.id} data={recette} />
-          ))}
+          <h1>Favoris</h1>
+          <div className={"liste-recette"}>
+              {recettes.map(recette => (
+                  <Recette key={recette.id} data={recette.recette}/>
+              ))}
+          </div>
       </>
   );
 }

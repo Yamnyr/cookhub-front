@@ -1,9 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { TextField, Button, Typography } from '@mui/material';
-import {useMyContext} from "./TokenProvider";
+import { useMyContext } from "./TokenProvider";
+import { useNavigate } from 'react-router-dom'; // Importer useNavigate
 
 export default function Login() {
-
+    const navigate = useNavigate(); // Utiliser useNavigate pour la redirection
     const { token, addToken } = useMyContext();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -27,9 +28,10 @@ export default function Login() {
             }
 
             const data = await response.json();
-            // Ici, vous pouvez gérer la réponse de la requête, par exemple, stocker le token dans le local storage
             console.log('Token:', data.token);
             addToken(data.token);
+
+            navigate('/'); // Rediriger vers la page d'accueil après la connexion
         } catch (error) {
             setErrorMessage(error.message);
         }
@@ -38,9 +40,10 @@ export default function Login() {
     return (
         <>
             <div className={"cadreForm"}>
-                <Typography variant="h5">Connexion</Typography>
+                <Typography className={"h5"} variant="h3 white">Connexion</Typography>
                 <form onSubmit={handleSubmit}>
                     <TextField
+                        focused
                         fullWidth={true}
                         label="Email"
                         variant="outlined"
@@ -49,6 +52,7 @@ export default function Login() {
                         onChange={(e) => setEmail(e.target.value)}
                     />
                     <TextField
+                        focused
                         fullWidth={true}
                         label="Mot de passe"
                         type="password"
@@ -61,7 +65,7 @@ export default function Login() {
                         fullWidth={true}
                         type="submit"
                         variant="contained"
-                        color="primary"
+                        color="secondary"
                         className={"button"}
                     >
                         Se connecter

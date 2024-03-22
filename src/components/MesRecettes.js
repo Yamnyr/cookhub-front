@@ -26,10 +26,13 @@ export default function MesRecettes() {
             });
     }, []);
   return (
-    <>
-        {recettes.map(recette => (
-            <Recette key={recette.id} data={recette} />
-        ))}
-    </>
+      <>
+          <h1>Mes recettes</h1>
+          <div className={"liste-recette"}>
+              {recettes.map(recette => (
+                  <Recette key={recette.id} data={recette}/>
+              ))}
+          </div>
+      </>
   )
 }

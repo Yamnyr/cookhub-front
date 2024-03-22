@@ -3,6 +3,7 @@ import { Button, Rating, TextField } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import { MdDelete } from "react-icons/md";
 import Typography from "@mui/material/Typography";
+import Commentaire from "./Commentaire";
 // import { useMyContext } from "./TokenProvider";
 
 export default function Commentaires({ data }) {
@@ -97,38 +98,40 @@ export default function Commentaires({ data }) {
     return (
         <>
             <div className={"container"}>
-                <h1>Commentaires</h1>
+                <h2 className={"white"}>Ajouter un commentaires</h2>
                 <Rating
                     name="size-large"
                     defaultValue={note}
                     size="large"
                     onChange={(event, value) => setNote(value)}
+                    sx={{
+                        '& .MuiRating-iconEmpty': {
+                            color: '#FBF5F3', // Couleur des étoiles vides
+                        }, marginBottom: '16px',
+                    }}
                 />
                 <TextField
                     fullWidth={true}
                     placeholder="Ajouter un commentaire."
                     value={message}
                     onChange={handleInputChange}
+                    focused
                 />
                 <Button
                     fullWidth={true}
                     className={"valid"}
                     variant="contained"
                     onClick={addCommentaire}
+                    color={"secondary"}
+                    size="large"
                 >
-                    <AddIcon />
+                    <AddIcon/>
                     Ajouter
                 </Button>
                 <div>
+                    <h2 className={"white"}>Les commentaires</h2>
                     {commentaires.map((commentaire, index) => (
-                        <div className="row commentaire" key={index}>
-                            <div key={index}>
-                            <Rating name="read-only" value={commentaire.note} readOnly />
-                            <h3>{commentaire.id_utilisateur}</h3>
-                                {/*TODO: route recup nom utilisateur*/}
-                                {commentaire.message}
-                            </div>
-                        </div>
+                        <Commentaire key={index} data={commentaire} />
                     ))}
                 </div>
             </div>
