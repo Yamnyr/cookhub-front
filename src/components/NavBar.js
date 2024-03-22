@@ -13,21 +13,29 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import {Link} from "react-router-dom";
+import {useState} from "react";
 
 
 function ResponsiveAppBar() {
 
-    const pages = [
-        {label: 'ajouter une recette', lien: '/ajoutrecette'},
-        {label: 'toutes les recette', lien: '/recettes'}
-    ];
-    const settings = [
-        {label: 'profil', lien: '/profil'},
-        {label: 'Mes recettes', lien: '/mesrecettes'},
-        {label: 'Mes favoris', lien: '/favrecettes'},
-        {label: 'Mes abonnements', lien: '/abonnement'}
-    ];
+    const storedToken = localStorage.getItem("token");
+    const token = (JSON.parse(storedToken));
 
+
+    const [errorMessage, setErrorMessage] = useState('');
+    const [pages, setPages] = useState([]);
+    const [settings, setSettings] = useState([]);
+    //
+    // const pages = [
+    //     {label: 'ajouter une recette', lien: '/ajoutrecette'},
+    //     {label: 'toutes les recette', lien: '/recettes'}
+    // ];
+    // const settings = [
+    //     {label: 'profil', lien: '/profil'},
+    //     {label: 'Mes recettes', lien: '/mesrecettes'},
+    //     {label: 'Mes favoris', lien: '/favrecettes'},
+    //     {label: 'Mes abonnements', lien: '/abonnement'}
+    // ];
 
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -46,6 +54,52 @@ function ResponsiveAppBar() {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
+
+    const check= async() =>{
+        try {
+            const response = await fetch('http://localhost:8000/recette/checkUser', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': token
+                },
+            });
+            console.log(response)
+            if (response.status === 401) {
+                setPages([
+                    // {label: 'ajouter une recette', lien: '/ajoutrecette'},
+                    {label: 'toutes les recette', lien: '/recettes'}
+                ]); // Fermez l'appel de fonction setPages avec une parenthèse fermante
+
+                setSettings([
+                    // {label: 'profil', lien: '/profil'},
+                    // {label: 'Mes recettes', lien: '/mesrecettes'},
+                    // {label: 'Mes favoris', lien: '/favrecettes'},
+                    // {label: 'Mes abonnements', lien: '/abonnement'}
+                    {label: 'Login', lien: '/login'},
+                    {label: 'Register', lien: '/register'}
+                ]); // Fermez l'appel de fonction setSettings avec une parenthèse fermante
+            }
+            else {
+                setPages([
+                    {label: 'ajouter une recette', lien: '/ajoutrecette'},
+                    {label: 'toutes les recette', lien: '/recettes'}
+                ]); // Fermez l'appel de fonction setPages avec une parenthèse fermante
+
+                setSettings([
+                    {label: 'profil', lien: '/profil'},
+                    {label: 'Mes recettes', lien: '/mesrecettes'},
+                    {label: 'Mes favoris', lien: '/favrecettes'},
+                    {label: 'Mes abonnements', lien: '/abonnement'}
+                ]); // Fermez l'appel de fonction setSettings avec une parenthèse fermante
+            }
+        } catch (error) {
+            setErrorMessage(error.message);
+        }
+    }
+    check()
+
+
 
     return (
         <AppBar  position="static" className={"vert"}>
@@ -100,13 +154,14 @@ function ResponsiveAppBar() {
                             }}
                         >
                             {pages.map((page) => (
-                                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                                <MenuItem key={page.lien} onClick={handleCloseNavMenu}>
                                     <Typography textAlign="center">
                                         <Link to={page.lien}>{page.label}</Link>
-                                        </Typography>
+                                    </Typography>
                                 </MenuItem>
                             ))}
                         </Menu>
+
                     </Box>
                     <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
                     <Typography
@@ -163,7 +218,7 @@ function ResponsiveAppBar() {
                             onClose={handleCloseUserMenu}
                         >
                             {settings.map((setting) => (
-                                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                                <MenuItem key={setting.lien} onClick={handleCloseUserMenu}>
                                     <Typography textAlign="center">
                                         <Link to={setting.lien}>{setting.label}</Link>
                                     </Typography>

@@ -17,7 +17,7 @@ function ShowRecette() {
     const [utilisateur, setUtilisateur] = useState(null);
     const [region, setRegion] = useState(null);
     const [favorited, setFavorited] = useState(false);
-    // const [follow, setFollow] = useState(false);
+    const [follow, setFollow] = useState(false);
     const storedToken = localStorage.getItem("token");
     const token = (JSON.parse(storedToken));
 
@@ -51,7 +51,7 @@ function ShowRecette() {
             .then(response => response.json())
             .then(data => {
                 const favorisIds = data.map(favori => favori.id_recette.toString()); // Convertir en chaînes de caractères si nécessaire
-                console.log(id, favorisIds);
+                // console.log(id, favorisIds);
 
                 if (favorisIds.includes(id.toString())) { // Assurez-vous que id et favorisIds ont le même type de données
                     setFavorited(true); // Si oui, marquer comme favori
@@ -61,6 +61,31 @@ function ShowRecette() {
                 console.error('Error fetching data:', error);
             });
     }, []);
+
+
+
+    useEffect(() => {
+        fetch('http://localhost:8000/recette/follow',{
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': token
+            },
+        })
+            .then(response => response.json())
+            .then(data => {
+                const followIds = data.map(follow => follow.id_abonnement.toString()); // Convertir en chaînes de caractères si nécessaire
+                console.log(id, followIds);
+
+                if (followIds.includes(id.toString())) { // Assurez-vous que id et favorisIds ont le même type de données
+                    setFollow(true); // Si oui, marquer comme favori
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    }, []);
+
 
     const deleteRecette = async () => {
         const storedToken = localStorage.getItem("token");
@@ -102,6 +127,30 @@ function ShowRecette() {
             }
 
             setFavorited(!favorited);
+        } catch (error) {
+            console.error('Error adding to favorites:', error);
+        }
+    };
+
+    const handleFollow = async () => {
+        const storedToken = localStorage.getItem("token");
+        const token = JSON.parse(storedToken);
+
+        try {
+
+            const response = await fetch(`http://localhost:8000/utilisateur/${recette.id_auteur}/suivre`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': token
+                },
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message);
+            }
+
+            setFollow(!follow);
         } catch (error) {
             console.error('Error adding to favorites:', error);
         }
@@ -186,7 +235,9 @@ function ShowRecette() {
                                     </>
                                 )}
                             </Typography>
-
+                            <IconButton onClick={handleFollow}>
+                                <FavoriteIcon fontSize="large" color={follow ? 'secondary' : 'primary'} />
+                            </IconButton>
                             <Typography variant="body2" color="textSecondary">
                                 {recette.ingrediants}
                                 <br />
