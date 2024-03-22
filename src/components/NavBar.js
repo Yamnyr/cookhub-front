@@ -11,9 +11,9 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
+import { TbToolsKitchen3 } from "react-icons/tb";
 import {Link} from "react-router-dom";
-import {useState} from "react";
+import { useState } from 'react';
 
 
 function ResponsiveAppBar() {
@@ -89,7 +89,7 @@ function ResponsiveAppBar() {
         <AppBar  position="static" className={"vert"}>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+                    <TbToolsKitchen3 sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
                     <Typography
                         variant="h6"
                         noWrap
@@ -138,16 +138,14 @@ function ResponsiveAppBar() {
                             }}
                         >
                             {pages.map((page) => (
-                                <MenuItem key={page.lien} onClick={handleCloseNavMenu}>
+                                <MenuItem key={page} onClick={handleCloseNavMenu}>
                                     <Typography textAlign="center">
                                         <Link to={page.lien}>{page.label}</Link>
-                                    </Typography>
+                                        </Typography>
                                 </MenuItem>
                             ))}
                         </Menu>
-
                     </Box>
-                    <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
                     <Typography
                         variant="h5"
                         noWrap
@@ -202,7 +200,7 @@ function ResponsiveAppBar() {
                             onClose={handleCloseUserMenu}
                         >
                             {settings.map((setting) => (
-                                <MenuItem key={setting.lien} onClick={handleCloseUserMenu}>
+                                <MenuItem key={setting} onClick={handleCloseUserMenu}>
                                     <Typography textAlign="center">
                                         <Link to={setting.lien}>{setting.label}</Link>
                                     </Typography>

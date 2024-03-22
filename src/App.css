@@ -6,6 +6,9 @@ body {
 .accueil{
     text-align: center;
 }
+.accueil img{
+    width: 450px;
+}
 .accueil h1{
     font-size: 40px;
     text-decoration: underline;

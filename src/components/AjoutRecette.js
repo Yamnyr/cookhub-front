@@ -185,7 +185,7 @@ export default function AjoutRecette() {
                         onChange={(e) => setTypePlat(e.target.value)}
                     >
                         {typesPlat.map((typePlat) => (
-                            <MenuItem key={typePlat.id} value={typePlat.id}>{typePlat.nom}</MenuItem>
+                            <MenuItem key={typePlat.id} value={typePlat.id} className='menuType'>{typePlat.nom}</MenuItem>
                         ))}
                     </Select>
                     <Button
