@@ -62,6 +62,7 @@ export default function RepRecette() {
                 <TextField
                     fullWidth={true}
                     placeholder="Rechercher une recette par son nom / ingrediants"
+                    className={"textField"}
                     value={searchTerm}
                     onChange={handleSearch}
                     color={"secondary"}

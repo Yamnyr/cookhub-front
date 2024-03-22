@@ -19,7 +19,7 @@ function ResponsiveAppBar() {
 
     const pages = [
         {label: 'ajouter une recette', lien: '/ajoutrecette'},
-        {label: 'toutes les recette', lien: '/recettes'}
+        {label: 'toutes les recettes', lien: '/recettes'}
     ];
     const settings = [
         {label: 'profil', lien: '/profil'},
