@@ -18,8 +18,21 @@ import {useState} from "react";
 
 function ResponsiveAppBar() {
 
+<<<<<<< HEAD
     const storedToken = localStorage.getItem("token");
     const token = (JSON.parse(storedToken));
+=======
+    const pages = [
+        {label: 'ajouter une recette', lien: '/ajoutrecette'},
+        {label: 'toutes les recettes', lien: '/recettes'}
+    ];
+    const settings = [
+        {label: 'profil', lien: '/profil'},
+        {label: 'Mes recettes', lien: '/mesrecettes'},
+        {label: 'Mes favoris', lien: '/favrecettes'},
+        {label: 'Mes abonnements', lien: '/abonnement'}
+    ];
+>>>>>>> 2ed0b93f6e53db631f8f45e157199ba0391f376b
 
 
     const [errorMessage, setErrorMessage] = useState('');

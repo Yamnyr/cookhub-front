@@ -16,7 +16,16 @@ body {
 
 .cadreForm form .textField{
     background-color: #666666;
-    
     border: 1px solid #111111;
     border-radius: 3%;
+}
+
+.cadreFilter .textField{
+    background-color: #888888;
+    border: 2px solid #111111;
+    border-radius: 3%;
+}
+.card-dark .imageCarte{
+    border: 2px solid #AAAAAA;
+    border-radius: 5%;
 }

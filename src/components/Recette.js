@@ -153,11 +153,10 @@ export default function Recette({ data }) {
         )}
 
       />
-      <CardMedia
+      <CardMedia className='imageCarte'
         component="img"
-        height="194"
         image={image}
-        alt="Paella dish"
+        alt={data.nom}
       />
       <CardContent>
           <Typography variant="body2" color="text.secondary">
@@ -196,7 +195,7 @@ export default function Recette({ data }) {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography paragraph>Preparation:</Typography>
+          <Typography paragraph>Preparation :</Typography>
           <Typography paragraph>
             {preparation}
           </Typography>
