@@ -50,17 +50,12 @@ function ShowRecette() {
         })
             .then(response => response.json())
             .then(data => {
-                // Extraire les identifiants des favoris
-                const favorisIds = data.map(favori => favori.id_recette);
-                console.log(id)
-                console.log(favorisIds)
+                const favorisIds = data.map(favori => favori.id_recette.toString()); // Convertir en chaînes de caractères si nécessaire
+                console.log(id, favorisIds);
 
-                console.log(favorited)
-                if (favorisIds.includes(id)) {
+                if (favorisIds.includes(id.toString())) { // Assurez-vous que id et favorisIds ont le même type de données
                     setFavorited(true); // Si oui, marquer comme favori
                 }
-                console.log(favorited)
-            //TODO://????
             })
             .catch(error => {
                 console.error('Error fetching data:', error);
@@ -173,32 +168,29 @@ function ShowRecette() {
                     <Card className={"info"}>
                         <CardContent>
                             <Typography variant="h5" component="h2" gutterBottom>
-                                <h3>
-                                    {recette.nom}
-                                    <IconButton onClick={handleAddToFavorites}>
+                                {recette.nom}
+                                <IconButton onClick={handleAddToFavorites}>
                                     <FavoriteIcon fontSize="large" color={favorited ? 'secondary' : 'primary'} />
-                                    </IconButton>
-                                    <IconButton onClick={deleteRecette}>
-                                        <DeleteIcon fontSize="large"/>
-                                        {/*<h6>{favorited ? 'Retirer des favoris' : 'Ajouter aux favoris'}</h6>*/}
-                                    </IconButton>
-                                </h3>
+                                </IconButton>
+                                <IconButton onClick={deleteRecette}>
+                                    <DeleteIcon fontSize="large"/>
+                                </IconButton>
+                            </Typography>
 
-                                <p>{region ? region.nom : ''} | {type ? type.nom : ''}</p>
+                            <Typography variant="subtitle1" color="textSecondary">
+                                {region ? region.nom : ''} | {type ? type.nom : ''}
                                 {utilisateur && (
-                                    <p>
-                                        {/*{utilisateur.nom} {utilisateur.prenom}*/}
+                                    <>
+                                        <br />
                                         {formattedDate} Créé par :  {utilisateur.nom} {utilisateur.prenom}
-                                    </p>
+                                    </>
                                 )}
-                                {/*<IconButton onClick={handleFollow}>*/}
-                                {/*    <FavoriteIcon fontSize="large" color={follow ? 'secondary' : 'primary'} />*/}
-                                {/*</IconButton>*/}
                             </Typography>
 
                             <Typography variant="body2" color="textSecondary">
-                                <p>{recette.ingrediants}</p>
-                                <p>{recette.preparation}</p>
+                                {recette.ingrediants}
+                                <br />
+                                {recette.preparation}
                             </Typography>
                         </CardContent>
                     </Card>

@@ -131,7 +131,7 @@ export default function Commentaires({ data }) {
                 <div>
                     <h2 className={"white"}>Les commentaires</h2>
                     {commentaires.map((commentaire, index) => (
-                        <Commentaire key={index} data={commentaire} />
+                        <Commentaire key={commentaire.id} data={commentaire} />
                     ))}
                 </div>
             </div>
