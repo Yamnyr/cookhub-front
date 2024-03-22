@@ -18,37 +18,13 @@ import {useState} from "react";
 
 function ResponsiveAppBar() {
 
-<<<<<<< HEAD
     const storedToken = localStorage.getItem("token");
     const token = (JSON.parse(storedToken));
-=======
-    const pages = [
-        {label: 'ajouter une recette', lien: '/ajoutrecette'},
-        {label: 'toutes les recettes', lien: '/recettes'}
-    ];
-    const settings = [
-        {label: 'profil', lien: '/profil'},
-        {label: 'Mes recettes', lien: '/mesrecettes'},
-        {label: 'Mes favoris', lien: '/favrecettes'},
-        {label: 'Mes abonnements', lien: '/abonnement'}
-    ];
->>>>>>> 2ed0b93f6e53db631f8f45e157199ba0391f376b
 
 
     const [errorMessage, setErrorMessage] = useState('');
     const [pages, setPages] = useState([]);
     const [settings, setSettings] = useState([]);
-    //
-    // const pages = [
-    //     {label: 'ajouter une recette', lien: '/ajoutrecette'},
-    //     {label: 'toutes les recette', lien: '/recettes'}
-    // ];
-    // const settings = [
-    //     {label: 'profil', lien: '/profil'},
-    //     {label: 'Mes recettes', lien: '/mesrecettes'},
-    //     {label: 'Mes favoris', lien: '/favrecettes'},
-    //     {label: 'Mes abonnements', lien: '/abonnement'}
-    // ];
 
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -80,15 +56,10 @@ function ResponsiveAppBar() {
             console.log(response)
             if (response.status === 401) {
                 setPages([
-                    // {label: 'ajouter une recette', lien: '/ajoutrecette'},
                     {label: 'toutes les recette', lien: '/recettes'}
                 ]); // Fermez l'appel de fonction setPages avec une parenthèse fermante
 
                 setSettings([
-                    // {label: 'profil', lien: '/profil'},
-                    // {label: 'Mes recettes', lien: '/mesrecettes'},
-                    // {label: 'Mes favoris', lien: '/favrecettes'},
-                    // {label: 'Mes abonnements', lien: '/abonnement'}
                     {label: 'Login', lien: '/login'},
                     {label: 'Register', lien: '/register'}
                 ]); // Fermez l'appel de fonction setSettings avec une parenthèse fermante
