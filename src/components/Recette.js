@@ -42,13 +42,11 @@ export default function Recette({ data }) {
   const storedToken = localStorage.getItem("token");
   const token = (JSON.parse(storedToken));
 
-  // const formattedIngredients = Object.keys(ingrediants).map(key => (
-  //   <Typography key={key} variant="body2" color="text.secondary">
-  //     {key}: {ingrediants[key]}
-  //   </Typography>
-  // ));
+  //component affichant une recette a l'unite ce components est utilisé dans de multiple boucle dès lors qu'il est neccessaire d'afficher une liste de recettes
 
   useEffect(() => {
+    //Récupère via l'api la liste des recettes en que l'utilisateur connecté a mis en favoris pour, par la suite les comparer avec là recette actuelle
+    // et donc set ou non la variable d'état (Favorited) qui permet d'afficher ou non un coeur vert (en favoris) ou un coeur s gris (pas en favoris)
     fetch('http://localhost:8000/recette/favoris', {
       method: 'GET',
       headers: {
@@ -72,6 +70,7 @@ export default function Recette({ data }) {
   useEffect(() => {
 
     if (id_region) {
+      //permet de recupérer le nom de la region de la recette
       fetch(`http://localhost:8000/region/getbyid/${id_region}`)
         .then(response => response.json())
         .then(data => {
@@ -83,6 +82,7 @@ export default function Recette({ data }) {
     }
 
     if (id_typeplat) {
+      //permet de recupérer le nom du type de plat de la recette
       fetch(`http://localhost:8000/typeplat/getbyid/${id_typeplat}`)
         .then(response => response.json())
         .then(data => {
@@ -93,6 +93,8 @@ export default function Recette({ data }) {
         });
     }
     if (id_auteur) {
+
+      //permet de recupérer le nom et le prenom de l'utilisateur ayant créer la recette
       fetch(`http://localhost:8000/utilisateur/getbyid/${id_auteur}`)
         .then(response => response.json())
         .then(data => {
@@ -103,6 +105,8 @@ export default function Recette({ data }) {
         });
     }
   }, [id_region]);
+
+  //ajoute la reccette au favorui de l'utilisateur
   const handleAddToFavorites = async () => {
     const storedToken = localStorage.getItem("token");
     const token = (JSON.parse(storedToken));

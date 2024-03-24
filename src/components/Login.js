@@ -12,7 +12,7 @@ export default function Login() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
+        // envoi une requete api qui connecte l'utilisateur et renvoi un token qui est stocké a un context et ainsi au local storage (dans le ficheri local storage)
         try {
             const response = await fetch('http://localhost:8000/utilisateur/login', {
                 method: 'POST',

@@ -7,6 +7,7 @@ export default function Commentaire({ data }) {
     const [utilisateur, setUtilisateur] = useState(null);
 
     useEffect(() => {
+        //recupère l'auteur du commentaire pour pouvoir affiché son prenom et son nom dans le rendu
         const fetchUtilisateur = async () => {
             try {
                 const response = await fetch(`http://localhost:8000/utilisateur/getbyid/${id_utilisateur}`);

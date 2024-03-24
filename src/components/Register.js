@@ -13,6 +13,7 @@ export default function Register() {
     const [errorMessage, setErrorMessage] = useState('');
 
     const handleSubmit = async (event) => {
+        // envoi une requete api qui enregister un nouvel utilisateur et renvoi un token qui est stocké a un context et ainsi au local storage (dans le ficheri local storage)
         event.preventDefault();
 
         try {

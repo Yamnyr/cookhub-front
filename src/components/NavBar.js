@@ -46,6 +46,7 @@ function ResponsiveAppBar() {
 
     const check = async () => {
         try {
+            //Vérifie si l'utilisateur est connecté pour set les liens/pages à affiché dans la navbar "un utilisateur non connecté ne doit pas pouvoir voir certains boutton lui permettant d'accéder à des pages inaccessibles pour un utilisateur non connecté
             const response = await fetch('http://localhost:8000/recette/checkUser', {
                 method: 'GET',
                 headers: {

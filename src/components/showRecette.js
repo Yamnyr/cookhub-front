@@ -9,6 +9,7 @@ import { Grid } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
 function ShowRecette() {
     const navigate = useNavigate(); // Utiliser useNavigate pour la redirection
@@ -23,7 +24,7 @@ function ShowRecette() {
 
     const [type, setType] = useState(null);
 
-
+    //recupère les infos de la recette selectionné
     useEffect(() => {
         fetch(`http://localhost:8000/recette/getbyid/${id}`)
             .then(response => {
@@ -40,6 +41,9 @@ function ShowRecette() {
             });
     }, [id]);
 
+
+    //Récupère via l'api la liste des recettes en que l'utilisateur connecté a mis en favoris pour, par la suite les comparer avec là recette actuelle
+    // et donc set ou non la variable d'état (Favorited) qui permet d'afficher ou non un coeur vert (en favoris) ou un coeur s gris (pas en favoris)
     useEffect(() => {
         fetch('http://localhost:8000/recette/favoris', {
             method: 'GET',
@@ -61,7 +65,6 @@ function ShowRecette() {
                 console.error('Error fetching data:', error);
             });
     }, []);
-
 
 
     useEffect(() => {
@@ -87,6 +90,7 @@ function ShowRecette() {
     }, []);
 
 
+    //requete api supprimant la recette dans le cas ou l'utilisateur est bien le propriétaire de cette recette
     const deleteRecette = async () => {
         const storedToken = localStorage.getItem("token");
         const token = (JSON.parse(storedToken));
@@ -108,6 +112,8 @@ function ShowRecette() {
             console.error('Error deleting recette:', error);
         }
     };
+
+    //ajoute la recette aux favoris de l'utilisateur
 
     const handleAddToFavorites = async () => {
         const storedToken = localStorage.getItem("token");
@@ -132,8 +138,15 @@ function ShowRecette() {
         }
     };
 
+
+    //ajoute l'auteyr de la recette aux abonnements de l'utilisateur
     const handleFollow = async () => {
         const storedToken = localStorage.getItem("token");
+        if (!storedToken) {
+            // Gérer le cas où l'utilisateur n'est pas connecté
+            return;
+        }
+
         const token = JSON.parse(storedToken);
 
         try {
@@ -155,6 +168,7 @@ function ShowRecette() {
         }
     };
 
+    //recupère la region de la recette pour afficher son nom dans le rendu
     useEffect(() => {
         if (recette && recette.id_region) {
             fetch(`http://localhost:8000/region/getbyid/${recette.id_region}`)
@@ -167,6 +181,8 @@ function ShowRecette() {
                 });
         }
 
+
+        //recupère le type de plat de la recette pour afficher son nom dans le rendu
         if (recette && recette.id_typeplat) {
             fetch(`http://localhost:8000/typeplat/getbyid/${recette.id_typeplat}`)
                 .then(response => response.json())
@@ -180,6 +196,7 @@ function ShowRecette() {
 
 
 
+        //recupère l'auteur de la recette pour afficher son nom et son prenom dans le rendu
         if (recette && recette.id_auteur) {
             fetch(`http://localhost:8000/utilisateur/getbyid/${recette.id_auteur}`)
                 .then(response => response.json())
@@ -218,7 +235,7 @@ function ShowRecette() {
                             <Typography variant="h5" component="h2" gutterBottom>
                                 {recette.nom}
                                 <IconButton onClick={handleAddToFavorites}>
-                                    <FavoriteIcon fontSize="large" color={favorited ? 'secondary' : 'primary'} />
+                                    <FavoriteIcon fontSize="large" color={favorited ? 'secondary' : ''} />
                                 </IconButton>
                                 <IconButton onClick={deleteRecette}>
                                     <DeleteIcon fontSize="large" />
@@ -233,10 +250,10 @@ function ShowRecette() {
                                         {formattedDate} Créé par :  {utilisateur.nom} {utilisateur.prenom}
                                     </>
                                 )}
+                                <IconButton onClick={handleFollow}>
+                                    <PersonAddIcon fontSize="large" color={follow ? 'secondary' : ''} />
+                                </IconButton>
                             </Typography>
-                            <IconButton onClick={handleFollow}>
-                                <FavoriteIcon fontSize="large" color={follow ? 'secondary' : 'primary'} />
-                            </IconButton>
                             <Typography variant="body2" color="textSecondary">
                                 {recette.ingrediants}
                                 <br />

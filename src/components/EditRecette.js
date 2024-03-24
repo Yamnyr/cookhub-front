@@ -35,6 +35,8 @@ export default function EditRecette() {
             }
         }
         check()
+
+        //recupère via l'api la recette que l'utilisateur veut modifier
         const fetchRecette = async () => {
             try {
                 const response = await fetch(`http://localhost:8000/recette/getById/${id}`, { // Utilisez l'ID de la recette dans l'URL de l'API
@@ -59,6 +61,8 @@ export default function EditRecette() {
         fetchRecette();
     }, [id, token]); // Ajoutez id comme dépendance
 
+
+    // modifie la recette via une requete api
     const handleSubmit = async (event) => {
         event.preventDefault();
 

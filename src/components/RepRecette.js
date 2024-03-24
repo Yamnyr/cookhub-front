@@ -10,6 +10,8 @@ export default function RepRecette() {
     const [region, setRegion] = useState('');
     const [type, setType] = useState('');
 
+
+    //recupère la liste entière des recettes ainsi que la liste des regions et des types de plat, utile pour ajouté les options au select de la bar de filtre de cette page
     useEffect(() => {
         fetch('http://localhost:8000/recette/getall')
             .then(response => response.json())

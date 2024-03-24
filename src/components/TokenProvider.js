@@ -4,6 +4,9 @@ export const MyContext = createContext({});
 export function TokenProvider({ children }) {
     const [token, setToken] = useState([]);
 
+    //ajoute le token dans le localstorage et le useContext
+    //dans le cas ou un token est stocké dans le localstorage il est ajouté aussi au context
+
     useEffect(() => {
         const storedToken = localStorage.getItem("token");
         if (storedToken) {

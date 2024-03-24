@@ -17,9 +17,9 @@ export default function AjoutRecette() {
     const storedToken = localStorage.getItem("token");
     const token = (JSON.parse(storedToken));
 
-    console.log(token)
 
     useEffect(() => {
+        //verifie que l'utilisateur est bien connecté avec un token valide
         const check = async () => {
             try {
                 const response = await fetch('http://localhost:8000/recette/checkUser', {
@@ -41,6 +41,8 @@ export default function AjoutRecette() {
             }
         }
         check()
+
+        //récupère la liste de toutes les region de la bdd pour plus tard en faire un menu deroulabt dans le rendu
         const fetchRegions = async () => {
             try {
                 const response = await fetch('http://localhost:8000/region/getall', {
@@ -59,6 +61,8 @@ export default function AjoutRecette() {
             }
         };
 
+
+        //récupère la liste de toutes les types de plat  de la bdd pour plus tard en faire un menu deroulabt dans le rendu
         const fetchTypesPlat = async () => {
             try {
                 const response = await fetch('http://localhost:8000/typeplat/getall', {
@@ -81,6 +85,8 @@ export default function AjoutRecette() {
         fetchTypesPlat();
     }, [token]);
 
+
+    //envoi un requete à l'api qui rajoute une recette à la bdd
     const handleSubmit = async (event) => {
         event.preventDefault();
 
